@@ -1,0 +1,15 @@
+footer {
+  @apply py-12 mt-24;
+  @apply bg-lightGrey bg-opacity-20;
+  @apply border-t border-grey border-opacity-5;
+
+  .container {
+    @apply flex justify-end;
+  }
+
+  .copyright {
+    p {
+      @apply text-xs text-grey text-opacity-70;
+    }
+  }
+}

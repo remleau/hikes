@@ -1,0 +1,137 @@
+header {
+  .menu-secondaire {
+    @apply bg-lightGrey bg-opacity-20 border-t border-b border border-grey border-opacity-5;
+    
+    .container {
+      @apply flex items-center justify-end;
+    }
+
+    nav {
+      ul {
+        @apply flex items-center justify-between;
+        @apply list-none;
+
+        li {
+          @apply py-2 px-6 cursor-pointer;
+          @apply border-r border-grey border-opacity-10;  
+          @apply text-grey;
+
+          a {
+            @apply text-xs uppercase text-grey text-opacity-75;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-principal {
+    @apply py-3;
+    @apply border-b border border-grey border-opacity-5;
+
+    .logo {
+      img {
+        width: 70px;
+      }
+    }
+
+    .container {
+      @apply flex items-center justify-between;
+    }
+
+    nav {
+      ul {
+        @apply flex items-center justify-between;
+        @apply list-none;
+
+        li {
+          @apply flex items-center py-3 px-7 cursor-pointer;
+
+          a {
+            @apply text-lg text-darkGrey font-semibold italic;
+
+            &.btn {
+              @apply bg-lightGreen text-lightGrey not-italic;
+            }
+
+            &:not(.btn):hover {
+              @apply text-darkGreen;
+            }
+          }
+
+          &:last-child {
+            @apply pr-0;
+          }
+        }
+      }
+    }
+  }
+
+  .search {
+    @apply w-full;
+    @apply flex items-center justify-center;
+    @apply transition-all opacity-0 duration-150 delay-75 ease-in-out;
+
+    height: 250px;
+
+    .container {
+      @apply flex justify-center;
+      @apply transition-all duration-200 ease-in-out;
+      opacity: 1;
+    }
+
+    &.close {
+      @apply invisible;
+      height: 0;
+
+      .container {
+        opacity: 0;
+      }
+    }
+
+    &.open {
+      @apply visible opacity-100;
+    }
+
+    &-bar {
+      @apply inline-block rounded-md overflow-hidden drop-shadow;
+
+      &-categories {
+        @apply inline-flex bg-lightGrey;
+
+        p {
+          @apply py-2 px-5 text-sm text-grey cursor-pointer;
+          @apply border-r border-darkGrey text-opacity-80 border-opacity-20;
+
+          &:hover {
+            @apply text-blue;
+          }
+
+          &:last-of-type {
+            @apply border-none;
+          }
+        }
+      }
+
+      &-input {
+        @apply flex;
+
+        input {
+          @apply px-10 py-6 outline-none;
+          @apply bg-lightGrey;
+          @apply border-t border-darkGrey border-opacity-20;
+
+          width: 400px;
+        }
+
+        .btn {
+          @apply flex items-center font-bold rounded-tr-md;
+          @apply rounded-none rounded-tr-md text-lightGrey;
+
+          &:hover {
+            @apply bg-darkBlue;
+          }
+        }
+      }
+    }
+  }
+}

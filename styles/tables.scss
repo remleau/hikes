@@ -1,0 +1,35 @@
+table {
+  @apply block w-full p-6;
+  @apply border border-lightGrey bg-lightGrey bg-opacity-40 rounded-md shadow-sm;
+
+  thead,
+  tbody,
+  tfoot {
+    @apply block w-full;
+
+    tr {
+    }
+  }
+
+  thead {
+    tr {
+      @apply flex pb-2 mb-4;
+      @apply border-b border-grey border-opacity-40;
+
+      td {
+        @apply text-xl text-darkGrey font-semibold;
+        @apply w-full;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      @apply flex;
+
+      td {
+        @apply w-full;
+      }
+    }
+  }
+}

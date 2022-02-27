@@ -1,0 +1,70 @@
+.stats {
+  @apply py-20 w-full;
+
+  &-title {
+    @apply pb-8;
+
+    h2 {
+      @apply pb-2;
+    }
+  }
+
+  .container {
+    @apply flex flex-wrap justify-between;
+  }
+
+  .stat {
+    @apply flex flex-col justify-between overflow-hidden;
+    @apply p-6;
+    @apply rounded-lg drop-shadow-lg;
+    @apply transition-all duration-200;
+
+    background-size: cover;
+    background-position: center;
+
+    width: 32%;
+    height: 300px;
+    max-height: 300px;
+
+    &-title {
+      h2 {
+        @apply text-lightGrey text-2.5xl pb-3;
+      }
+
+      p {
+        @apply text-lightGrey text-base pr-8;
+      }
+    }
+
+    &-action {
+      .btn {
+        @apply text-lightGrey px-3 py-1 text-sm bg-lightGreen;
+
+        svg {
+          width: 17px;
+        }
+      }
+    }
+
+    .overlay {
+      @apply w-full h-full absolute top-0 left-0 bg-grey bg-opacity-30;
+
+      z-index: -1;
+    }
+    
+    .blur {
+      @apply w-full h-4/5 absolute top-0 left-0 bg-opacity-30;
+
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(38,39,41,0.55) 0%, rgba(255,255,255,0) 80%);
+    }
+
+    &:hover {
+      @apply cursor-pointer;
+
+      .btn {
+        @apply bg-darkGreen;
+      }
+    }
+  }
+}

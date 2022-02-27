@@ -1,0 +1,69 @@
+.heroHome {
+  $heightHero: 550px;
+  @apply flex items-center justify-between;
+  @apply bg-lightGrey bg-opacity-20;
+  @apply border-b-2 border-t-2 border-lightGrey border-opacity-50;
+
+  height: $heightHero;
+
+  .content {
+    @apply w-2/5;
+    @apply px-16;
+    
+    .text {
+      @apply inline-block bg-lightGrey rounded shadow-md;
+      @apply relative z-10;
+      @apply p-6 mb-4;
+
+      margin-right: -12rem;
+
+      h1 {
+      }
+
+      p {
+        @apply text-lg;
+      }
+
+      &:last-of-type {
+        @apply mb-0;
+      }
+    }
+
+    .btn {
+      @apply mt-5 mr-4 px-12;
+    }
+  }
+
+  .swiper {
+    @apply w-full;
+  }
+
+  .slider-heroHome {
+    @apply flex;
+    @apply w-3/5;
+    height: $heightHero;
+
+    .image {
+      @apply flex justify-end relative h-full w-full;
+      background-size: cover;
+      background-position: center;
+
+      .overlay {
+        @apply absolute w-full h-full;
+        @apply bg-grey bg-opacity-40;
+      }
+
+      .copyrights {
+        @apply p-4 self-end;
+
+        p {
+          @apply text-sm text-white;
+
+          span {
+            @apply italic;
+          }
+        }
+      }
+    }
+  }
+}

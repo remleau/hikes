@@ -1,0 +1,9 @@
+.btn {
+  @apply inline-block px-16 py-4 rounded;
+  @apply bg-blue shadow;
+  @apply transition-all duration-200;
+
+  span {
+    @apply text-lightGrey text-sm font-bold;
+  }
+}

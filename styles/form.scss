@@ -1,0 +1,57 @@
+.admin {
+  form {
+    @apply my-4 py-8 px-10;
+    @apply bg-lightGrey bg-opacity-40 rounded-sm shadow;
+
+    .formDescription {
+      @apply mb-8 bg-lightGrey -my-8 -mx-10 p-10;
+
+      p {
+        @apply text-lg font-medium;
+      }
+    }
+
+    .fields {
+      @apply w-full my-4 py-2 px-0;
+
+      > div {
+        @apply -mx-4;
+      }
+
+      label {
+        @apply inline-block mx-4; 
+
+        span {
+          @apply block mb-2;
+          @apply text-sm text-darkGrey font-medium;
+        }
+      }
+
+      input {
+        @apply w-full block py-3 px-6 mb-5 shadow-sm;
+        @apply text-darkGrey border-b border-darkGrey border-opacity-50;
+
+        &:focus {
+          @apply outline-black rounded-sm border-transparent;
+        }
+      }
+
+      &:last-of-type,
+      &:first-of-type {
+        @apply my-0;
+      }
+    }
+
+    .action {
+      @apply mt-8;
+    }
+
+    .btn {
+      @apply text-white;
+
+      &:hover {
+        @apply bg-darkBlue;
+      }
+    }
+  }
+}
