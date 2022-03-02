@@ -1,4 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link'
+
 import 'swiper/css';
 
 export default function () {
@@ -11,7 +13,9 @@ export default function () {
         <div className="text">
           <p>Spare ribs salami shank cow pastrami sirloin buffalo. Alcatra ham doner, salami jowl chuck pork chop Spare ribs salami shank cow pastrami sirloin buffalo.</p>
         </div>
-        <a href="/hikes/create" className="btn"><span>Add hike</span></a>
+        <Link href="/hikes/create">
+          <a className="btn"><span>Add hike</span></a>
+        </Link>
         <a href="" className="btn"><span>Add Pictures</span></a>
       </div>
       <div className="slider-heroHome">

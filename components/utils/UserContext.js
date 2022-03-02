@@ -77,14 +77,6 @@ export const UserProvider = ({ children }) => {
       if (user && (router.pathname == '/connexion' || router.pathname == '/register')) { 
         router.push('/')
       }
-
-      if (!user && router.pathname === '/') {
-        router.push('/connexion')
-      }
-     
-      if (!user && router.pathname !== '/') {
-        router.push('/connexion')
-      }
     });
 
     return unsubscribe;

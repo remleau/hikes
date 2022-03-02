@@ -3,6 +3,8 @@ import { useAuth } from '/components/utils/UserContext';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
+import Link from 'next/link'
+
 export default function () {
   const [formError, setFormError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
@@ -39,7 +41,7 @@ export default function () {
             <div className="action">
               <button className="btn">Login</button>
               <div className="text">
-                <p>Or register <a href="/register">Here</a></p>
+                <p>Or register <Link href="/register"><a>Here</a></Link></p>
               </div>
             </div>
           </form>

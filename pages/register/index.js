@@ -40,7 +40,7 @@ export default function () {
             <div className="action">
               <button className="btn">Register</button>
               <div className="text">
-                <p>Or signIn <a href="/connexion">Here</a></p>
+                <p>Or signIn <Link href="/connexion"><a>Here</a></Link></p>
               </div>
             </div>
           </form>

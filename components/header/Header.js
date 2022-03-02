@@ -3,6 +3,8 @@ import LanguageSwitcher from "../utils/LanguageSwitcher";
 import { useAuth } from '/components/utils/UserContext';
 import { useRouter } from 'next/router';
 
+import Link from 'next/link'
+
 export default function Header() {
   const router = useRouter();
   const [openSearchBar, setOpenSearchBar] = useState(false);
@@ -26,7 +28,7 @@ export default function Header() {
         <div className="container">
           <nav>
             <ul>
-              <li><a href="/settings">Settings</a></li>
+              <li><Link href="/settings"><a>Settings</a></Link></li>
               <li><a onClick={() => logout()}>Logout</a></li>
               <li><LanguageSwitcher /></li>
             </ul>
@@ -36,15 +38,25 @@ export default function Header() {
       <div className="menu-principal">
         <div className="container">
           <div className="logo">
-            <a href="/" className="">
-              <h1><img src="/images/logo.svg" /></h1>
-            </a>
+            <Link href="/">
+              <a className="">
+                <h1><img src="/images/logo.svg" /></h1>
+              </a>
+            </Link>
           </div>
           <nav>
             <ul>
               <li><a onClick={() => openSearch()}>Explore</a></li>
-              <li><a href="/#home">Mountains</a></li>
-              <li><a href="/hikes" className="btn">Hikes</a></li>
+              <li>
+                <Link href="/#home">
+                  <a>Mountains</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/hikes">
+                  <a className="btn">Hikes</a>
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -58,7 +70,7 @@ export default function Header() {
             </div>
             <div className="search-bar-input">
               <input placeholder="Search content ..." type="text" />
-              <a href="" className="btn">Search</a>
+              <a className="btn">Search</a>
             </div>
           </div>
         </div>
