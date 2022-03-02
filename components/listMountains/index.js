@@ -1,6 +1,6 @@
-export default function () {
+export default function ({ id }) {
   return (
-    <div className="listMountains">
+    <div className="listMountains" id={id}>
       <div className="container">
         <table className="mountains">
           <thead>

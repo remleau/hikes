@@ -6,7 +6,7 @@ export default function () {
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
 
-      <SubHero pageTitle="Add a hike" />
+      <SubHero pageTitle="Add a quick hike." />
 
       <div className="something">
         create hike

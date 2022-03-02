@@ -18,7 +18,7 @@ export default function Home() {
     <Layout meta={meta} api="">
       <HeroHome />
       <CardStats />
-      <ListMountains />
+      <ListMountains id="home" />
     </Layout>
   )
 }

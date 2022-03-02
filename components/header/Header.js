@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import LanguageSwitcher from "../utils/LanguageSwitcher";
-import { ScrollTo } from '/components/utils/utils';
 import { useAuth } from '/components/utils/UserContext';
 import { useRouter } from 'next/router';
 
@@ -44,9 +43,8 @@ export default function Header() {
           <nav>
             <ul>
               <li><a onClick={() => openSearch()}>Explore</a></li>
-              <li><a onClick={() => ScrollTo('.stats')}>Stats</a></li>
-              <li><a>Mountains</a></li>
-              <li><a href="" className="btn">Hikes</a></li>
+              <li><a href="/#home">Mountains</a></li>
+              <li><a href="/hikes" className="btn">Hikes</a></li>
             </ul>
           </nav>
         </div>

@@ -1,0 +1,17 @@
+.input {
+  &-field {
+    @apply mb-4;
+
+    input {
+      @apply mb-0 #{!important};
+    }
+
+    &-error {
+      @apply bg-darkGrey p-2 px-4 rounded-b;
+
+      span {
+        @apply text-red mb-0 #{!important};
+      }
+    }
+  }
+}

@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useAuth } from '/components/utils/UserContext';
-import { useForm } from 'react-hook-form';
+import { useFormik } from "formik";
 import { useRouter } from 'next/router';
+import * as Yup from "yup";
 
 import SubHero from '/components/subHero';
+import { Input } from '/components/form'
 import { LayoutContainer } from '/components/layout';
 import { useEffect } from 'react';
 
 export default function () {
   const [userData, setUserData] = useState();
   const [formError, setFormError] = useState(null);
-  const { register, handleSubmit } = useForm();
   const { getUserData } = useAuth();
   const router = useRouter();
 
@@ -19,18 +20,19 @@ export default function () {
   }, [])
 
 
-  const onSubmit = async (formData) => {
-    if (!formData) {
-      return setFormError('What the fuck my mannn!');
-    }
-
-    try {
-      console.log(formData);
-      setFormError('');
-    } catch (error) {
-      setFormError(error.message);
-    }
-  }
+  const formik = useFormik({
+    initialValues: {
+      email: userData?.email || '',
+      uid: userData?.uid || '',
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      email: Yup.string().email().required("The email is required"),
+    }),
+    onSubmit(values) {
+      console.log(values)
+    },
+  });
 
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
@@ -38,7 +40,7 @@ export default function () {
 
       <SubHero pageTitle="Settings page" />      
 
-      <form onSubmit={handleSubmit(onSubmit)} className="userDataForm">
+      <form onSubmit={formik.handleSubmit} className="userDataForm">
         <div className="formDescription">
           <p>My informations</p>
         </div>
@@ -57,18 +59,33 @@ export default function () {
           <div className="flex">
             <label htmlFor="" className="w-1/2">
               <span>Courriel</span>
-              <input type="text" {...register("email")} className="" defaultValue={userData?.email} />
+              <Input
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                touched={formik.touched.email}
+                error={formik.errors.email}
+                name="email"
+                type="text"
+              />
             </label>
 
             <label htmlFor="" className="w-1/2">
               <span>UID</span>
-              <input type="text" disabled {...register("uid")} className="" defaultValue={userData?.uid} />
+              <Input
+                onChange={formik.handleChange}
+                value={formik.values.uid}
+                touched={formik.touched.uid}
+                error={formik.errors.uid}
+                name="uid"
+                type="text"
+                disabled
+              />
             </label>
           </div>
         </div>
 
         <div className="action">
-          <button className="btn">Update</button>
+          <button type="submit" className="btn">Update</button>
         </div>
       </form>
 

@@ -1,10 +1,18 @@
 import Head from 'next/head';
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { ScrollTo } from '/components/utils/utils';
 
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 export function Layout({ children, meta, api }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    ScrollTo(router.asPath);
+  }, [])
 
   let { title, description, image } = Object.assign({
     title: 'Mountains',

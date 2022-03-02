@@ -1,1 +1,3 @@
-export const ScrollTo = (ref) => document.querySelector(ref) && document.querySelector(ref).scrollIntoView({ behavior: 'smooth' });
+export const ScrollTo = (ref) => {
+  document.getElementById(ref.substring(2)) && document.getElementById(ref.substring(2)).scrollIntoView({ behavior: "smooth", block: "center"});
+}
