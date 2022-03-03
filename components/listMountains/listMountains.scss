@@ -1,3 +1,55 @@
 .listMountains {
   @apply mb-8;
+
+  .container {
+    @apply px-0;
+  }
+
+  table {
+    thead,
+    tbody,
+    tfoot {
+      tr {
+        .name {
+          @apply font-semibold;
+          
+          width: 250px;
+        }
+
+        .date {
+          width: 250px;
+        }
+
+        td {
+          @apply px-5;
+        }
+
+        td:not([class]) {
+          flex: 1;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        @apply mb-2 bg-lightGrey rounded cursor-pointer;
+
+        td {
+          @apply p-3 px-5 border-r border-grey border-opacity-40;
+
+          &:last-of-type {
+            @apply border-none;
+          }
+        }
+
+        &:hover {
+          @apply bg-lightGreen;
+        }
+
+        &:last-of-type {
+          @apply mb-0;
+        }
+      }
+    }
+  }
 }

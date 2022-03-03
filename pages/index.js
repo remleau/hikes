@@ -1,24 +1,24 @@
-import { useContext } from 'react';
-import { UserContext } from '/components/utils/UserContext';
-
 import HeroHome from '/components/heroHome';
 import { Layout } from '/components/layout';
 import CardStats from '/components/cardStats';
 import ListMountains from '/components/listMountains';
 
-export default function Home() {
-  const { data } = useContext(UserContext);
+import { useState, useEffect } from 'react';
+import { useAuth } from '/components/utils/UserContext';
 
-  let meta = {
-    title: '',
-    description: ''
-  }
+export default function Home() {
+  const [hikes, setHikes] = useState(null);
+  const { getHikes } = useAuth();
+
+  useEffect(async () => {
+    setHikes(await getHikes());
+  }, [])
 
   return (
-    <Layout meta={meta} api="">
+    <Layout api="">
       <HeroHome />
       <CardStats />
-      <ListMountains id="home" />
+      <ListMountains hikes={hikes} id="home" />
     </Layout>
   )
 }

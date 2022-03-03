@@ -18,7 +18,6 @@ table {
 
       td {
         @apply text-xl text-darkGrey font-semibold;
-        @apply w-full;
       }
     }
   }
@@ -28,7 +27,6 @@ table {
       @apply flex;
 
       td {
-        @apply w-full;
       }
     }
   }

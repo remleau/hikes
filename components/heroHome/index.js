@@ -16,7 +16,7 @@ export default function () {
         <Link href="/hikes/create">
           <a className="btn"><span>Add hike</span></a>
         </Link>
-        <a href="" className="btn"><span>Add Pictures</span></a>
+        <a className="btn"><span>Add Pictures</span></a>
       </div>
       <div className="slider-heroHome">
         <Swiper

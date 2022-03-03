@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore"
 import app from './firebase';
 import { 
   getAuth,
@@ -22,7 +23,30 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedInState, setIsLoggedInState] = useState(false);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const userInfo = auth.currentUser;
+
+  const getHikes = async () => {
+    const hikes = await getDocs(collection(db, "hikes"));
+
+    const table = [];
+    hikes.forEach((doc, i) => {
+      table.push({
+        id: doc.id,
+        data: doc.data()
+      });
+    });
+
+    return table; 
+  }
+
+
+  const getHikeById = async (id) => {
+    const hike = await getDoc(doc(db, 'hikes', id));
+
+    return hike.data() ? hike.data() : null;
+  }
+
 
   // SignUp fonction
   const signUp = (email, password) => {
@@ -93,7 +117,9 @@ export const UserProvider = ({ children }) => {
     logOut,
     signIn,
     isLoggedIn,
-    getUserData
+    getUserData,
+    getHikes,
+    getHikeById
   }
 
   if (!user && router.pathname !== '/connexion' && router.pathname !== '/register') return null;
