@@ -1,4 +1,5 @@
 import { UserProvider } from '../components/utils/UserContext';
+import { DataProvider } from '../components/utils/DataContext';
 import { CookiesProvider } from "react-cookie"
 
 /* Reset */
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <CookiesProvider>
       <UserProvider>
-        <Component {...pageProps} />
+        <DataProvider>
+          <Component {...pageProps} />
+        </DataProvider>
       </UserProvider>
     </CookiesProvider>
   )

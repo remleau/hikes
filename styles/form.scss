@@ -11,6 +11,18 @@
       }
     }
 
+    .formSuccess {
+      @apply mb-8 bg-lightGreen -my-8 -mx-10 px-10 py-4;
+
+      p {
+        @apply text-base font-medium;
+
+        .succesLink {
+          @apply underline text-white;
+        }
+      }
+    }
+
     .fields {
       @apply w-full my-4 py-2 px-0;
 

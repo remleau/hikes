@@ -4,11 +4,11 @@ import CardStats from '/components/cardStats';
 import ListMountains from '/components/listMountains';
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '/components/utils/UserContext';
+import { useData } from '/components/utils/DataContext';
 
 export default function Home() {
   const [hikes, setHikes] = useState(null);
-  const { getHikes } = useAuth();
+  const { getHikes } = useData();
 
   useEffect(async () => {
     setHikes(await getHikes());

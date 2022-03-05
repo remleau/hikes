@@ -3,6 +3,8 @@ import { useAuth } from '/components/utils/UserContext';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
+import Link from 'next/link'
+
 export default function () {
   const [formError, setFormError] = useState(null);
   const { register, handleSubmit, errors } = useForm();

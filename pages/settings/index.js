@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '/components/utils/UserContext';
 import { useFormik } from "formik";
-import { useRouter } from 'next/router';
 import * as Yup from "yup";
 
 import SubHero from '/components/subHero';
@@ -13,7 +12,6 @@ export default function () {
   const [userData, setUserData] = useState();
   const [formError, setFormError] = useState(null);
   const { getUserData } = useAuth();
-  const router = useRouter();
 
   useEffect(async () => {
     setUserData(() => getUserData());
@@ -36,7 +34,7 @@ export default function () {
 
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
-      {formError && <div className="form-error"><p>{formError}</p></div>}
+      {formError && <Error error={formError} />}
 
       <SubHero pageTitle="Settings page." />      
 

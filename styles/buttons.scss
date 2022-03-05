@@ -6,4 +6,8 @@
   span {
     @apply text-lightGrey text-sm font-bold;
   }
+
+  &.disabled {
+    @apply bg-opacity-90 cursor-not-allowed;
+  }
 }

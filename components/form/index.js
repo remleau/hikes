@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'
 
 export const Input = ({ onChange, value, touched, error, name, type, disabled }) => {
 
@@ -13,5 +14,28 @@ export const Input = ({ onChange, value, touched, error, name, type, disabled })
         )}
       </div>
     </React.Fragment>
+  )
+}
+
+export const FormError = ({ error }) => {
+
+  return (
+    <React.Fragment>
+      <div className="formSuccess">
+        <p>{error}</p>
+      </div>
+    </React.Fragment>
+  )
+}
+
+
+export const SuccesLink = ({ link }) => {
+
+  return (
+    <Link href={link.href}>
+      <a className="succesLink">
+        <span>{link.text}</span>
+      </a>
+    </Link>
   )
 }

@@ -11,7 +11,7 @@ export default function ({ hikes, id }) {
       <tr key={i} onClick={() => router.push(`/hikes/${hike?.id}`)}>
         <td className="name">{hike?.data?.name}</td>
         <td>Location</td>
-        <td>{hike?.data?.kilometers}</td>
+        <td>{hike?.data?.kilometers ? hike?.data?.kilometers : '-'}</td>
         <td className="date">{formatDate(hike?.data?.date?.seconds)}</td>
       </tr>
     )
