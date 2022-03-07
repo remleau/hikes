@@ -6,14 +6,11 @@ table {
   tbody,
   tfoot {
     @apply block w-full;
-
-    tr {
-    }
   }
 
   thead {
     tr {
-      @apply flex pb-2 mb-4;
+      @apply flex mb-4;
       @apply border-b border-grey border-opacity-40;
 
       td {
@@ -24,7 +21,7 @@ table {
 
   tbody {
     tr {
-      @apply flex;
+      @apply relative flex overflow-hidden;
 
       td {
       }

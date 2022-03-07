@@ -19,7 +19,7 @@ export default function () {
 
       <SubHero pageTitle="Hikes." />      
 
-      <ListMountains hikes={hikes} />
+      <ListMountains hikes={hikes} setHikes={setHikes} />
 
     </LayoutContainer>
   ) 

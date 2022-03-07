@@ -18,7 +18,7 @@ export default function Home() {
     <Layout api="">
       <HeroHome />
       <CardStats />
-      <ListMountains hikes={hikes} id="home" />
+      <ListMountains hikes={hikes} setHikes={setHikes} id="home" />
     </Layout>
   )
 }

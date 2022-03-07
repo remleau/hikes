@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext } from 'react';
-import { getFirestore, collection, getDocs, getDoc, doc, setDoc } from "firebase/firestore"
+import { getFirestore, collection, getDocs, getDoc, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore"
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, uploadBytesResumable } from "firebase/storage";
 import app from './firebase';
 
 export const DataContext = createContext();
@@ -11,7 +12,7 @@ export const useData = () => {
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState(null);
   const db = getFirestore(app);
-
+  const storage = getStorage();
 
   const getHikes = async () => {
     const hikes = await getDocs(collection(db, "hikes"));
@@ -36,13 +37,30 @@ export const DataProvider = ({ children }) => {
 
 
   const addHike = async (data) => {
-    const ref = doc(collection(db, "hikes"));
-    const hike = await setDoc(ref, data);
+    const promises = [];
+
+    Object.values(data.files).map((node, i) => {
+      let storageRef = ref(storage, `images/${node.name}`);
+      promises.push(uploadBytes(storageRef, node).then(uploadResult => { return getDownloadURL(uploadResult.ref) }))
+    });
+
+    const images = await Promise.all(promises);
+    const refDb = doc(collection(db, "hikes"));
+
+    data.date = new Date();
+    data.files = images
+
+    await setDoc(refDb, data);
 
     return {
       text: 'Go check out your freshly hiking post',
-      href: `/hikes/${ref.id}`
+      href: `/hikes/${refDb.id}`
     }
+  }
+
+
+  const deleteHike = async (id) => {
+    const deletedHike = await deleteDoc(doc(db, 'hikes', id));
   }
 
 
@@ -52,7 +70,8 @@ export const DataProvider = ({ children }) => {
     setData,
     getHikes,
     getHikeById,
-    addHike
+    addHike,
+    deleteHike
   }
 
   return (

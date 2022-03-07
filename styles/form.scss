@@ -36,11 +36,17 @@
         span {
           @apply block mb-2;
           @apply text-sm text-darkGrey font-medium;
+
+          sup {
+            @apply text-red;
+
+            margin-left: -0.25rem;
+          }
         }
       }
 
       input {
-        @apply w-full block py-3 px-6 mb-5 shadow-sm;
+        @apply w-full block py-3 px-6 shadow-sm;
         @apply text-darkGrey border-b border-darkGrey border-opacity-50;
 
         &:focus {

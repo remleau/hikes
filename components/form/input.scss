@@ -15,3 +15,32 @@
     }
   }
 }
+
+.import-field {
+  p {
+    @apply py-3 px-6 bg-white font-semibold text-sm;
+    @apply text-darkGrey border-b border-darkGrey border-opacity-50;
+
+    span {
+      @apply flex items-center #{!important};
+      @apply text-xs #{!important};
+
+      svg {
+        @apply mr-1;  
+        width: 16px;
+      }
+
+      &:first-child {
+        @apply mt-2;
+      }
+
+      &:last-child {
+        @apply mb-0 #{!important};
+      }
+    }
+  }
+
+  input[type="file"] {
+    @apply invisible hidden opacity-0 #{!important};
+  }
+}

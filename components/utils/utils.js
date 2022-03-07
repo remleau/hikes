@@ -3,5 +3,6 @@ export const ScrollTo = (ref) => {
 }
 
 export const formatDate = (seconds) =>  {
-  return seconds ? new Date(seconds * 1000).toLocaleString('en-CA') : '-';
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  return seconds ? new Date(seconds * 1000).toLocaleDateString('en-CA', options) : '-';
 }

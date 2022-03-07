@@ -5,7 +5,7 @@ import * as Yup from "yup";
 
 import SubHero from '/components/subHero';
 import { LayoutContainer } from '/components/layout';
-import { Input, FormError, SuccesLink } from '/components/form'
+import { Input, FormError, SuccesLink, ImportFiles } from '/components/form'
 
 
 export default function () {
@@ -16,11 +16,12 @@ export default function () {
     initialValues: {
       name: '',
       kilometer: '',
+      files: []
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
       name: Yup.string().required("The name is required"),
-      kilometer: Yup.number().typeError('You must specify a number').min(1).required("You must specify a number"),
+      // kilometer: Yup.number().typeError('You must specify a number').min(1).required("You must specify a number"),
     }),
     onSubmit(values) {
       addHike(values).then((rep) => {
@@ -38,7 +39,7 @@ export default function () {
 
       <SubHero pageTitle="Add a quick hike." />
 
-      <form onSubmit={formik.handleSubmit} className="userDataForm">
+      <form onSubmit={formik.handleSubmit} className="userDataForm" encType ="multipart/form-data">
         <div className="formDescription">
           <p>My fucking awesome hike!</p>
         </div>
@@ -48,7 +49,7 @@ export default function () {
         <div className="fields">
           <div className="flex">
             <label htmlFor="" className="w-1/2">
-              <span>Name</span>
+              <span>Name of your Hike. <sup>*</sup></span>
               <Input
                 onChange={formik.handleChange}
                 value={formik.values.name}
@@ -60,7 +61,7 @@ export default function () {
             </label>
 
             <label htmlFor="" className="w-1/2">
-              <span>Kilometer</span>
+              <span>Number of kilometers traveled.</span>
               <Input
                 onChange={formik.handleChange}
                 value={formik.values.kilometer}
@@ -69,6 +70,24 @@ export default function () {
                 name="kilometer"
                 type="text"
               />
+            </label>
+          </div>
+
+          <div className="flex">
+            <label htmlFor="files" className="w-1/2">
+              <span>Digital memories.</span>
+              <ImportFiles
+                onChange={formik.handleChange}
+                value={formik.values.files}
+                touched={formik.touched.files}
+                error={formik.errors.files}
+                formik={formik}
+                name="files[]"
+                type="file"
+                id="files"
+              />
+            </label>
+            <label className="w-1/2">
             </label>
           </div>
         </div>
