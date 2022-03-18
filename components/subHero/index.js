@@ -5,11 +5,16 @@ SubHero.propTypes = {
   elementProp: PropTypes.element
 }
 
-export default function SubHero ({ pageTitle }) {
+export default function SubHero({ pageTitle, children }) {
 
   return (
     <div className="subHero">
       <h1>{pageTitle}</h1>
-    </div>
+      {children && (
+        <div className="subHero-menus">
+          {children}
+        </div>
+      )}
+    </div> 
   )
 }

@@ -52,6 +52,10 @@
         &:focus {
           @apply outline-black rounded-sm border-transparent;
         }
+
+        &::placeholder {
+          @apply text-xs;
+        }
       }
 
       &:last-of-type,

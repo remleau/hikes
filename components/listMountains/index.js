@@ -1,17 +1,14 @@
 import { formatDate } from "../utils/utils";
+import Actions from '/components/actions';
+import React, { useState } from "react";
 import { useRouter } from 'next/router';
-import { useData } from '/components/utils/DataContext';
-import React from "react";
 
 export default function ({ hikes, setHikes,  id }) {
+  const [openKey, setOpenKey] = useState();
   const router = useRouter();
-  const { deleteHike } = useData();
 
-  console.log(hikes)
-
-  const deleteStateHike = (id) => {
-    deleteHike(id);
-    setHikes(hikes.filter((hike) => hike.id !== id));
+  const handleToggle = key => {
+    setOpenKey(openKey !== key ? key : null)
   }
 
   const setRows = hikes?.map((hike, i) => {
@@ -25,9 +22,11 @@ export default function ({ hikes, setHikes,  id }) {
             </svg>
             <span>{hike?.data?.name}</span>
           </div>
-          <div className="hikeLocation">
-            <span>ZEC Louise Gosford | Secteur Gosford</span>
-          </div>
+          {hike?.data?.location && (
+            <div className="hikeLocation">
+              <span>{hike?.data?.location}</span>
+            </div>
+          )}
         </td>
         <td className="informations">
           <div className="hikeDate">
@@ -40,7 +39,7 @@ export default function ({ hikes, setHikes,  id }) {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span>69 kM</span>
+            <span>{hike?.data?.kilometer ? hike?.data?.kilometer + 'km' : '-'}</span>
           </div>
           <div className="hikeImages">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -51,16 +50,13 @@ export default function ({ hikes, setHikes,  id }) {
           </div>
         </td>
         <td className="actions">
-          <div className="bg-red" onClick={() => deleteStateHike(hike?.id)}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div className="bg-lightGreen" onClick={() => router.push(`hikes/${hike.id}`)}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-            </svg>
-          </div>
+          <Actions
+            id={hike.id}
+            setHikes={setHikes}
+            key={i}
+            toggle={handleToggle}
+            open={openKey === hike.id}
+          />
         </td>
       </tr>
     )
@@ -74,7 +70,6 @@ export default function ({ hikes, setHikes,  id }) {
             <tr>
               <td className="name">Name</td>
               <td className="informations">Informations</td>
-              <td className="actions">Actions</td>
             </tr>
           </thead>
 

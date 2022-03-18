@@ -2,12 +2,12 @@ import React from 'react';
 import Link from 'next/link'
 import { useState } from 'react';
 
-export const Input = ({ onChange, value, touched, error, name, type, disabled, placeholder }) => {
+export const Input = ({ onChange, value, touched, error, name, type, disabled, placeholder, innerRef, autocomplete }) => {
 
   return (
     <React.Fragment>
       <div className="input-field">
-        <input type={type} name={name} className="" onChange={onChange} value={value} disabled={disabled} placeholder={placeholder} />
+        <input type={type} name={name} className="" onChange={onChange} value={value} disabled={disabled} placeholder={placeholder} ref={innerRef} autoComplete={autocomplete} />
         {touched && error && (
           <div className="input-field-error">
             <span>{error}</span>

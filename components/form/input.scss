@@ -7,16 +7,18 @@
     }
 
     &-error {
-      @apply bg-darkGrey p-2 px-4 rounded-b;
+      @apply bg-darkRed bg-opacity-80 p-2 px-4 rounded-b;
 
       span {
-        @apply text-red mb-0 #{!important};
+        @apply text-xs text-white mb-0 #{!important};
       }
     }
   }
 }
 
 .import-field {
+  @apply cursor-pointer;
+  
   p {
     @apply py-3 px-6 bg-white font-semibold text-sm;
     @apply text-darkGrey border-b border-darkGrey border-opacity-50;
@@ -42,5 +44,15 @@
 
   input[type="file"] {
     @apply invisible hidden opacity-0 #{!important};
+  }
+}
+
+.googlePlaces {
+  .css-2b097c-container {
+    .css-yk16xz-control {
+      .css-1hwfws3 {
+        padding: 0.4rem 0.5rem !important;
+      }
+    }
   }
 }

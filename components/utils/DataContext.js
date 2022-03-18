@@ -53,7 +53,7 @@ export const DataProvider = ({ children }) => {
     await setDoc(refDb, data);
 
     return {
-      text: 'Go check out your freshly hiking post',
+      text: 'Check out your hiking post',
       href: `/hikes/${refDb.id}`
     }
   }

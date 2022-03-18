@@ -23,6 +23,7 @@ module.exports = {
     projectId: "mountains-app-dev",
     storageBucket: "mountains-app-dev.appspot.com",
     messagingSenderId: "371191343534",
-    appId: "1:371191343534:web:d4e0c1e258d7abfe45003f"
+    appId: "1:371191343534:web:d4e0c1e258d7abfe45003f",
+    googleMapsKey: "AIzaSyAl4X8CgLp0SWs4F5LoV9zgk34E7q9IHLg"
   },
 }

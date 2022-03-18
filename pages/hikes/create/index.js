@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { useFormik } from "formik";
 import { useData } from '/components/utils/DataContext';
 import * as Yup from "yup";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 import SubHero from '/components/subHero';
 import { LayoutContainer } from '/components/layout';
 import { Input, FormError, SuccesLink, ImportFiles } from '/components/form'
+import { useEffect } from 'react';
 
 
 export default function () {
+  const [googlePlaceValue, setGooglePlaceValue] = useState(null);
   const [formError, setFormError] = useState(null);
   const { addHike } = useData();
 
@@ -16,7 +19,8 @@ export default function () {
     initialValues: {
       name: '',
       kilometer: '',
-      files: []
+      files: [],
+      location: ''
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -26,12 +30,17 @@ export default function () {
     onSubmit(values) {
       addHike(values).then((rep) => {
         setFormError(<SuccesLink link={rep} />)
+        formik.resetForm({
+          ...formik.initialValues,
+        });
       })
-      formik.resetForm({
-        ...formik.initialValues,
-      });
     },
   });
+
+
+  useEffect(() => {
+    formik.setFieldValue('location', googlePlaceValue?.value?.structured_formatting?.secondary_text);
+  }, [googlePlaceValue])
 
 
   return (
@@ -55,6 +64,7 @@ export default function () {
                 value={formik.values.name}
                 touched={formik.touched.name}
                 error={formik.errors.name}
+                placeholder="Ex: Mont Washington"
                 name="name"
                 type="text"
               />
@@ -88,6 +98,16 @@ export default function () {
               />
             </label>
             <label className="w-1/2">
+              <span>Location.</span>
+              <div className="googlePlaces">
+                <GooglePlacesAutocomplete
+                  apiKey={process.env.googleMapsKey}
+                  selectProps={{
+                    googlePlaceValue,
+                    onChange: setGooglePlaceValue
+                  }}
+                />
+              </div>
             </label>
           </div>
         </div>

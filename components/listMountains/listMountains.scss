@@ -10,6 +10,14 @@
       tr {
         td {
           @apply p-3 px-4;
+
+          &.name {
+            width: 350px;
+          }
+
+          &.informations {
+            flex: 1;
+          }
         }
       }
     }
@@ -57,21 +65,6 @@
 
         .actions {
           @apply flex justify-center items-center;
-          width: 125px;
-
-          div {
-            @apply mr-2 p-2 rounded cursor-pointer;
-
-            svg {
-              @apply mr-0 text-white;
-              height: inherit;
-              width: 20px;
-            }
-
-            &:last-of-type {
-              @apply mr-0;
-            }
-          }
         }
 
         td {
