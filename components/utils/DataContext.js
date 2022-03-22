@@ -49,6 +49,7 @@ export const DataProvider = ({ children }) => {
 
     data.date = new Date();
     data.files = images
+    data.user_id = ''
 
     await setDoc(refDb, data);
 

@@ -1,4 +1,4 @@
-.heroHome {
+.heroSingle {
   $heightHero: 550px;
   @apply flex items-center justify-between;
   @apply bg-lightGrey bg-opacity-20;
@@ -51,7 +51,7 @@
 
       .overlay {
         @apply absolute w-full h-full;
-        @apply bg-grey bg-opacity-40;
+        @apply bg-grey bg-opacity-30;
       }
 
       .copyrights {

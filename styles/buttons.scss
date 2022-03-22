@@ -1,6 +1,6 @@
 .btn {
   @apply inline-block px-16 py-4 rounded;
-  @apply bg-blue shadow;
+  @apply bg-lightGreen shadow;
   @apply transition-all duration-200;
 
   span {
@@ -9,5 +9,9 @@
 
   &.disabled {
     @apply bg-opacity-90 cursor-not-allowed;
+  }
+
+  &:hover {
+    @apply bg-darkGreen;
   }
 }

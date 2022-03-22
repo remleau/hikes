@@ -8,7 +8,7 @@ export default function () {
     <div className="heroHome">
       <div className="content">
         <div className="text">
-          <h1>Bresaola leberkas picanha pancetta</h1>
+          <h1>Welcome to your hiking center</h1>
         </div>
         <div className="text">
           <p>Spare ribs salami shank cow pastrami sirloin buffalo. Alcatra ham doner, salami jowl chuck pork chop Spare ribs salami shank cow pastrami sirloin buffalo.</p>

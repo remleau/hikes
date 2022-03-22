@@ -1,0 +1,80 @@
+.containerActions {
+  @apply relative flex justify-center;
+
+  .actionsIcon {
+    @apply text-center p-2 cursor-pointer;
+    @apply transition-all duration-200;
+
+    svg {
+      @apply opacity-60 mr-0;
+
+      width: 18px;
+    }
+
+    &:hover,
+    &.active {
+      @apply text-darkGreen;
+    }
+  }
+
+  .actionsButtons {
+    @apply absolute p-2 bg-white shadow z-10 rounded-sm opacity-0 invisible border border-transparent;
+    @apply transition-all duration-200;
+
+    width: 200px;
+    top: 100%;
+
+    > div {
+      @apply w-full flex justify-start items-center;
+      @apply mr-2 p-2 rounded cursor-pointer;
+
+      p {
+        @apply text-xs text-darkGrey text-opacity-60;
+      }
+
+      svg {
+        @apply mr-2 text-darkGrey text-opacity-60;
+        height: inherit;
+        width: 18px;
+      }
+
+      &:last-of-type {
+        @apply mr-0;
+      }
+
+      &:hover {
+        p {
+          @apply text-blue text-opacity-80;
+        }
+
+        &.update {
+          @apply text-lightGreen  bg-lightGreen bg-opacity-10 shadow-sm;
+
+          p, svg {
+            @apply text-lightGreen;
+          }
+        }
+
+        &.read {
+          @apply text-blue bg-lightBlue bg-opacity-10 shadow-sm;
+          
+          p, svg {
+            @apply text-blue;
+          }
+        }
+
+        &.delete {
+          @apply text-red bg-red bg-opacity-10;
+          
+          p, svg {
+            @apply text-red;
+          }
+        }
+      }
+    }
+
+    &.active {
+      @apply opacity-100 visible z-20;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useData } from '/components/utils/DataContext';
 import { useEffect, useState } from 'react';
 
+import HeroSingle from '/components/heroSingle';
 import { Layout } from '/components/layout';
 
 export default function () {
@@ -14,17 +15,10 @@ export default function () {
     setHike(await getHikeById(pid));
   }, [])
 
-  console.log(hike)
-
   return (
-    <Layout pageClasse="settingsPage" api="">
+    <Layout pageClasse="singlePage">
 
-      {hike?.name}
-      {hike?.files?.map((file, i) => {
-        return (
-          <img src={file} key={i} />
-        )
-      })}
+      <HeroSingle hike={hike} />
 
     </Layout>
   )

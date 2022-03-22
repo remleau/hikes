@@ -50,7 +50,7 @@ export default function () {
 
       <form onSubmit={formik.handleSubmit} className="userDataForm" encType ="multipart/form-data">
         <div className="formDescription">
-          <p>My fucking awesome hike!</p>
+          <p>My awesome hike!</p>
         </div>
 
         {formError && <FormError error={formError} />}
@@ -104,7 +104,8 @@ export default function () {
                   apiKey={process.env.googleMapsKey}
                   selectProps={{
                     googlePlaceValue,
-                    onChange: setGooglePlaceValue
+                    onChange: setGooglePlaceValue,
+                    placeholder:"ex: mount washington"
                   }}
                 />
               </div>

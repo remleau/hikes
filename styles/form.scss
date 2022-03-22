@@ -52,7 +52,7 @@
         &:focus {
           @apply outline-black rounded-sm border-transparent;
         }
-
+        
         &::placeholder {
           @apply text-xs;
         }
@@ -70,10 +70,6 @@
 
     .btn {
       @apply text-white;
-
-      &:hover {
-        @apply bg-darkBlue;
-      }
     }
   }
 }

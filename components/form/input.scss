@@ -52,7 +52,17 @@
     .css-yk16xz-control {
       .css-1hwfws3 {
         padding: 0.4rem 0.5rem !important;
+
+        .css-1wa3eu0-placeholder {
+          @apply text-xs #{!important};
+        }
       }
     }
+  }
+}
+
+#react-select-2-input {
+  &::placeholder {
+    @apply text-xs #{!important};
   }
 }
