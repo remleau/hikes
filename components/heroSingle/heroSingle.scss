@@ -1,5 +1,5 @@
 .heroSingle {
-  $heightHero: 550px;
+  $heightHero: calc(100vh - 151px);
   @apply flex items-center justify-between;
   @apply bg-lightGrey bg-opacity-20;
   @apply border-b-2 border-t-2 border-lightGrey border-opacity-50;
@@ -32,7 +32,32 @@
     .btn {
       @apply mt-5 mr-4 px-12;
     }
-  }
+
+    .stats {
+      @apply pt-0 flex;
+
+      > div {
+        @apply flex items-center;
+        @apply pr-5;
+
+        p {
+          @apply text-sm;
+
+          &:hover {
+            @apply underline;
+          }
+        }
+
+        svg {
+          @apply pr-1;
+        }
+
+        &:last-child {
+          @apply pr-0;
+        }
+      }
+    }
+  } // content
 
   .swiper {
     @apply w-full;

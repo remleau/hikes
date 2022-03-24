@@ -7,7 +7,7 @@ import { ScrollTo } from '/components/utils/utils';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-export function Layout({ children, meta, api }) {
+export function Layout({ children, meta, api, pageClasse }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function Layout({ children, meta, api }) {
 
       <Header />
 
-      <main>
+      <main className={`${pageClasse}`}>
         {children}
       </main>
 

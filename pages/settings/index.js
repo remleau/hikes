@@ -36,7 +36,7 @@ export default function () {
     <LayoutContainer pageClasse="settingsPage" api="">
       {formError && <Error error={formError} />}
 
-      <SubHero pageTitle="Settings page." />      
+      <SubHero pageTitle="Settings." />      
 
       <form onSubmit={formik.handleSubmit} className="userDataForm">
         <div className="formDescription">

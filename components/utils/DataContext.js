@@ -1,4 +1,6 @@
 import React, { useState, createContext, useContext } from 'react';
+import { useAuth } from '/components/utils/UserContext';
+
 import { getFirestore, collection, getDocs, getDoc, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, uploadBytesResumable } from "firebase/storage";
 import app from './firebase';
@@ -13,6 +15,7 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState(null);
   const db = getFirestore(app);
   const storage = getStorage();
+  const { getUserId } = useAuth();
 
   const getHikes = async () => {
     const hikes = await getDocs(collection(db, "hikes"));
@@ -49,7 +52,7 @@ export const DataProvider = ({ children }) => {
 
     data.date = new Date();
     data.files = images
-    data.user_id = ''
+    data.user_id = getUserId()
 
     await setDoc(refDb, data);
 

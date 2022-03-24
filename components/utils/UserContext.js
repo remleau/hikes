@@ -18,7 +18,6 @@ export const useAuth = () => {
 
 export const UserProvider = ({ children }) => {
   const router = useRouter();
-  const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoggedInState, setIsLoggedInState] = useState(false);
   const auth = getAuth(app);
@@ -66,6 +65,12 @@ export const UserProvider = ({ children }) => {
   }
 
 
+  // Get UserId from profile
+  const getUserId = () => {
+    return userInfo.uid ? userInfo.uid : null;
+  }
+
+
   // Handle Auth change and set User
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -86,8 +91,6 @@ export const UserProvider = ({ children }) => {
 
   // Return Values in the context for other Components
   const value = {
-    data,
-    setData,
     user,
     setUser,
     signUp,
@@ -95,6 +98,7 @@ export const UserProvider = ({ children }) => {
     signIn,
     isLoggedIn,
     getUserData,
+    getUserId,
   }
 
   if (!user && router.pathname !== '/connexion' && router.pathname !== '/register') return null;

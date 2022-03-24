@@ -1,4 +1,13 @@
 header {
+  @apply bg-white z-50;
+
+  position: sticky;
+  top:0;
+
+  & + main:not(.singlePage) {
+    
+  }
+
   .menu-secondaire {
     @apply bg-lightGrey bg-opacity-20 border-t border-b border border-grey border-opacity-5;
     
