@@ -1,0 +1,7 @@
+.loadingScreen {
+  @apply fixed w-full h-screen bg-white;
+  @apply flex items-center justify-center;
+
+  opacity: 0;
+  z-index: -100;
+}

@@ -1,5 +1,5 @@
 export const ScrollTo = (ref) => {
-  document.getElementById(ref.substring(2)) && document.getElementById(ref.substring(2)).scrollIntoView({ behavior: "smooth", block: "center"});
+  document.getElementById(ref.substring(2)) && document.getElementById(ref.substring(2)).scrollIntoView({ behavior: "smooth", block: "end"});
 }
 
 export const formatDate = (seconds) =>  {

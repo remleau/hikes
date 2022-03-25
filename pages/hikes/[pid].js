@@ -6,19 +6,23 @@ import HeroSingle from '/components/heroSingle';
 import { Layout } from '/components/layout';
 
 export default function () {
+  const [isLoading, setIsLoading] = useState(true);
   const [hike, setHike] = useState(null);
   const router = useRouter()
   const { pid } = router.query
   const { getHikeById } = useData();
 
-  useEffect(async () => {
-    setHike(await getHikeById(pid));
+  useEffect(() => {
+    getHikeById(pid).then((hike) => {
+      setHike(hike)
+      setIsLoading(false);
+    });
   }, [])
 
   return (
-    <Layout pageClasse="singlePage">
+    <Layout pageClasse="singlePage" isLoading={isLoading}>
 
-      <HeroSingle hike={hike} />
+      <HeroSingle hike={hike} animated={isLoading} />
 
     </Layout>
   )

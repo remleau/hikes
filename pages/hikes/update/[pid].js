@@ -10,10 +10,10 @@ export default function () {
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
 
-      <SubHero pageTitle="Add a hike" />
+      <SubHero pageTitle="Update." />
 
       <div className="something">
-        adds hike {pid}
+        update hike {pid}
       </div>
 
     </LayoutContainer>
