@@ -1,5 +1,12 @@
+import { gsap, TweenMax } from "gsap";
+
 export const ScrollTo = (ref) => {
-  document.getElementById(ref.substring(2)) && document.getElementById(ref.substring(2)).scrollIntoView({ behavior: "smooth", block: "end"});
+  let hash = ref.substring(2);
+  let node = document.getElementById(hash);
+
+  setTimeout(() => {
+    node && node.scrollIntoView({ behavior: 'smooth' })
+  }, 150);
 }
 
 export const formatDate = (seconds) =>  {

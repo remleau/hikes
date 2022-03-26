@@ -1,25 +1,23 @@
 import Head from 'next/head';
 import React, { useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
 import { gsap } from "gsap";
-
-import { ScrollTo } from '/components/utils/utils';
+import { useRouter } from 'next/router';
 
 import { SpinnerRoundOutlined } from 'spinners-react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 export function Layout({ children, meta, pageClasse, isLoading = false }) {
-  const router = useRouter();
   const loadingRef = useRef();
+  const router = useRouter();
 
-  useEffect(() => {
-    ScrollTo(router.asPath);
-  }, [])
+  // useEffect(() => {
+  //   gsap.fromTo(loadingRef.current, { opacity: 1, zIndex: 100 }, { opacity: 0, duration: 0.8, zIndex: -100, ease: 'power2.easeOut', delay: 0.6 });
 
-  useEffect(() => {
-    isLoading && gsap.fromTo(loadingRef.current, { opacity: 1, zIndex: 100 }, { opacity: 0, duration: 0.8, zIndex: -100, ease: 'power2.easeOut', delay: 0.4 });
-  }, [isLoading])
+  //   return () => {
+  //     gsap.fromTo(loadingRef.current, { opacity: 0, zIndex: 100 }, { opacity: 1, duration: 0.8, zIndex: -100, ease: 'power2.easeOut', delay: 0.6 });
+  //   } 
+  // }, [isLoading, router.asPath])
 
   let { title, description, image } = Object.assign({
     title: 'Mountains',
@@ -54,6 +52,8 @@ export function Layout({ children, meta, pageClasse, isLoading = false }) {
 
 
 export function LayoutContainer({ children, meta, api, pageClasse }) {
+  const heroRef = useRef();
+  const mainRef = useRef();
 
   const displayChild = (childName) => {
     const selectedChild = children.map((child, i) => {
@@ -65,13 +65,21 @@ export function LayoutContainer({ children, meta, api, pageClasse }) {
     return selectedChild
   }
 
+  useEffect(() => {
+    gsap.fromTo(heroRef.current, { yPercent: '-20', opacity: 0 }, { yPercent: '0', opacity: 1, duration: 0.25, ease: 'power2.easeOut', delay: 0.25 });
+    gsap.fromTo(mainRef.current, { opacity: 0, xPercent: '-1' }, { opacity: 1, xPercent: '0', duration: 0.25, ease: 'power4.easeOut', delay: 0.4 });
+  }, [])
+
   return (
     <Layout meta={meta} api={api}>
       <div className={`page admin ${pageClasse}`}>
         <div className="container">
-          {displayChild('SubHero')}
 
-          <div className="inner-page">
+          <div ref={heroRef}>
+            {displayChild('SubHero')}
+          </div>
+
+          <div className="inner-page" ref={mainRef}>
             {children}
           </div>
         </div>

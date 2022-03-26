@@ -1,10 +1,6 @@
 .subHero {
-  @apply mt-12;
+  @apply my-12;
   @apply flex justify-between items-center;
-
-  & + .inner-page {
-    @apply relative mt-12;
-  }
 
   &-menus {
     

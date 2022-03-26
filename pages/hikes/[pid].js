@@ -8,7 +8,7 @@ import { Layout } from '/components/layout';
 export default function () {
   const [isLoading, setIsLoading] = useState(true);
   const [hike, setHike] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
   const { pid } = router.query
   const { getHikeById } = useData();
 

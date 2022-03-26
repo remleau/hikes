@@ -48,13 +48,13 @@ export default function Header() {
             <ul>
               <li><a onClick={() => openSearch()}>Explore</a></li>
               <li>
-                <Link href="/#home">
+                <Link href="/">
                   <a>Mountains</a>
                 </Link>
               </li>
               <li>
                 <Link href="/hikes">
-                  <a className="btn">My Hikes</a>
+                  <a className="btn">My Hikes.</a>
                 </Link>
               </li>
             </ul>

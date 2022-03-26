@@ -4,10 +4,6 @@ header {
   position: sticky;
   top:0;
 
-  & + main:not(.singlePage) {
-    
-  }
-
   .menu-secondaire {
     @apply bg-lightGrey bg-opacity-20 border-t border-b border border-grey border-opacity-5;
     
@@ -137,12 +133,8 @@ header {
         }
 
         .btn {
-          @apply flex items-center font-bold rounded-tr-md;
+          @apply flex items-center font-bold rounded-tr-md cursor-pointer;
           @apply rounded-none rounded-tr-md text-lightGrey;
-
-          &:hover {
-            @apply bg-darkBlue;
-          }
         }
       }
     }

@@ -14,10 +14,10 @@ export default function ({ hike, animated = false }) {
 
   useEffect(() => {
     if (animated) {
-      gsap.fromTo(texth1ref.current, { xPercent: "-100", opacity: 0 }, { xPercent: "0", opacity: 1, duration: 0.6, ease: 'power2.easeOut', delay: 0.6});
-      gsap.fromTo(textref.current, { xPercent: "-50", opacity: 0 }, { xPercent: "0", opacity: 1, duration: 0.6, ease: 'power2.easeOut', delay: 0.7});
-      gsap.fromTo(statref.current, { yPercent: "50", opacity: 0 }, { yPercent: "0", opacity: 1, duration: 0.5, ease: 'power2.easeOut', delay: 0.9});
-      gsap.fromTo(sliderref.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.easeOut', delay: 0.7});
+      gsap.fromTo(texth1ref.current, { xPercent: "-100", opacity: 0 }, { xPercent: "0", opacity: 1, duration: 0.6, ease: 'power2.easeOut', delay: 0.5});
+      gsap.fromTo(textref.current, { xPercent: "-50", opacity: 0 }, { xPercent: "0", opacity: 1, duration: 0.6, ease: 'power2.easeOut', delay: 0.6});
+      gsap.fromTo(statref.current, { yPercent: "50", opacity: 0 }, { yPercent: "0", opacity: 1, duration: 0.5, ease: 'power2.easeOut', delay: 0.75});
+      gsap.fromTo(sliderref.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.easeOut', delay: 0.7});
     }
   }, [animated])
 
