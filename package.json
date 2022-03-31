@@ -1,12 +1,13 @@
 {
-  "name": "afo-react",
+  "name": "hikes",
   "private": true,
   "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export_db": "docker exec hikes_db_1 /usr/bin/mysqldump -uwordpress --password=wordpress wordpress> databases/db-$(date +%Y-%m-%d).sql --no-tablespaces"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
