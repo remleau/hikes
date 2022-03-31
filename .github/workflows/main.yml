@@ -12,5 +12,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: yarn
+      - run: yarn install
       - run: yarn build
