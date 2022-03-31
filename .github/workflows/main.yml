@@ -13,5 +13,6 @@ jobs:
 
     steps:
       - run: cd ./
+      - run : pwd
       - run: yarn install
       - run: yarn build
