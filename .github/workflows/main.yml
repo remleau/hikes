@@ -14,15 +14,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-
-      # extract `engines.node` from package.json and save it to output
-      - name: Get Node.JS version from package.json
-        id: get-versions
-        run: echo ::set-output name=node::$(jq -r .engines.node ./package.json)
-
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{steps.get-versions.outputs.node}}
+          node-version: '14.15.3'
 
       - run: yarn install
       - run: yarn build
