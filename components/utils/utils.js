@@ -13,3 +13,13 @@ export const formatDate = (seconds) =>  {
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   return seconds ? new Date(seconds * 1000).toLocaleDateString('en-CA', options) : '-';
 }
+
+export const formatLocation = (adress) => {
+  let parsed = JSON.parse(adress);
+
+  const getAdress = () => {
+    return parsed && parsed.adress;
+  }
+  
+  return getAdress;
+}

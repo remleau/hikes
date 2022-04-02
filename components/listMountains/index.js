@@ -12,6 +12,7 @@ export default function ({ hikes, setHikes,  id }) {
   }
 
   const setRows = hikes?.map((hike, i) => {
+    console.log(hike)
     return (
       <tr key={i} >
         <td className="name" onClick={() => router.push(`hikes/${hike.id}`)}>
@@ -24,7 +25,7 @@ export default function ({ hikes, setHikes,  id }) {
           </div>
           {hike?.data?.location && (
             <div className="hikeLocation">
-              <span>{hike?.data?.location}</span>
+              <span>{hike?.data?.location && JSON.parse(hike?.data?.location)?.adress}</span>
             </div>
           )}
         </td>

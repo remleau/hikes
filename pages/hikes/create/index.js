@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { useData } from '/components/utils/DataContext';
 import * as Yup from "yup";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import SubHero from '/components/subHero';
 import { LayoutContainer } from '/components/layout';
@@ -39,7 +40,15 @@ export default function () {
 
 
   useEffect(() => {
-    formik.setFieldValue('location', googlePlaceValue?.value?.structured_formatting?.secondary_text);
+    googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => 
+        formik.setFieldValue('location', JSON.stringify({
+          adress: googlePlaceValue?.value?.structured_formatting?.secondary_text,
+          lat: lat,
+          lng: lng
+        }))
+      );
   }, [googlePlaceValue])
 
 
