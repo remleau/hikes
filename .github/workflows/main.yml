@@ -15,5 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Read node from package.json
+        uses: culshaw/read-package-node-version-actions@v1
+        id: package-node-version
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.package-node-version.outputs.version }}
+
       - run: yarn install
       - run: yarn build
