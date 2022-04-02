@@ -20,7 +20,7 @@ jobs:
         id: package-node-version
 
       - name: Show node version number
-        run: ls
+        run: echo "Version is ${{ steps.package-node-version.outputs.version }}"
 
       - uses: actions/setup-node@v3
         with:
