@@ -18,6 +18,8 @@ jobs:
       - name: Read node from package.json
         uses: culshaw/read-package-node-version-actions@v1
         id: package-node-version
+
+      - name: Show node version number of package.json
         run: echo "Version is ${{ steps.package-version.outputs.version }}"
 
       - uses: actions/setup-node@v3
