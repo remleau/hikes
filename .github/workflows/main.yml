@@ -15,8 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Read node from package.json
-        uses: culshaw/read-package-node-version-actions@v1
+      - name: Read package.json node version
+        uses: culshaw/read-package-node-version-actions@v2.0.0
         id: package-node-version
 
       - name: Show node version number
