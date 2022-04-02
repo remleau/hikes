@@ -15,16 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Read package.json node version
-        uses: culshaw/read-package-node-version-actions@v1
-        id: package-node-version
-
-      - name: Show node version number
-        run: echo "Version is ${{ steps.version.outputs.version }}"
+      # extract `engines.node` from package.json and save it to output
+      - name: Get Node.JS version from package.json
+        id: get-versions
+        run: echo ::set-output name=node::$(jq -r .engines.node ./package.json)
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.version.outputs.version }}
+          node-version: ${{steps.get-versions.outputs.node}}
 
       - run: yarn install
       - run: yarn build
