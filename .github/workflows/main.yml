@@ -20,11 +20,11 @@ jobs:
         id: package-node-version
 
       - name: Show node version number
-        run: echo "Version is ${{ steps.package-node-version.outputs.version }}"
+        run: echo "Version is ${{ steps.version.outputs.version }}"
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.package-node-version.outputs.version }}
+          node-version: ${{ steps.version.outputs.version }}
 
       - run: yarn install
       - run: yarn build
