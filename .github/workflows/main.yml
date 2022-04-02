@@ -18,7 +18,7 @@ jobs:
       - name: Read node from package.json
         uses: culshaw/read-package-node-version-actions@v1
         with: 
-          path: "./package.json"
+          path: "package.json"
         id: package-node-version
 
       - name: Show node version number of package.json
