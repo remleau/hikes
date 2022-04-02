@@ -17,12 +17,10 @@ jobs:
 
       - name: Read node from package.json
         uses: culshaw/read-package-node-version-actions@v1
-        with: 
-          path: "package.json"
         id: package-node-version
 
       - name: Show node version number of package.json
-        run: echo "Version is ${{ steps.package-version.outputs.version }}"
+        run: echo "Version is ${{ steps.package-node-version.outputs.version }}"
 
       - uses: actions/setup-node@v3
         with:
