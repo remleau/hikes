@@ -5,3 +5,39 @@
   opacity: 0;
   z-index: -100;
 }
+
+.map {
+  
+  .pin {
+    @apply flex items-center justify-center;
+
+    .icon {
+      @apply absolute p-3 flex items-center justify-center;
+      @apply bg-white text-lightGreen;
+
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+    }
+
+    .description {
+      @apply bg-white py-3 px-5 rounded-sm;
+      @apply absolute;
+
+      width: 250px;
+      left: calc(100% + 5rem);
+
+      p {
+        @apply font-medium;
+      }
+
+      &.opened {
+        @apply block opacity-100 visible;
+      }
+
+      &.closed {
+        @apply hidden opacity-0 invisible;
+      }
+    }
+  }
+}

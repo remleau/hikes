@@ -43,13 +43,17 @@ export default function () {
     googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => 
-        formik.setFieldValue('location', JSON.stringify({
+        formik.setFieldValue('location', {
           adress: googlePlaceValue?.value?.structured_formatting?.secondary_text,
           lat: lat,
           lng: lng
-        }))
+        })
       );
-  }, [googlePlaceValue])
+  }, [googlePlaceValue]);
+
+  const fetchAlbums = () => {
+ 
+  }
 
 
   return (
@@ -123,6 +127,7 @@ export default function () {
         </div>
 
         <div className="action">
+          <button onClick={() => fetchAlbums()} >Create</button>
           <button type="submit" className={`btn ${Object.keys(formik.errors).length === 0 ? '' : 'disabled'}`}>Create</button>
         </div>
       </form>

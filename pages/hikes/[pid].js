@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useData } from '/components/utils/DataContext';
 import { useEffect, useState } from 'react';
 
+import Map from '/components/maps';
 import HeroSingle from '/components/heroSingle';
 import { Layout } from '/components/layout';
 
@@ -23,6 +24,7 @@ export default function () {
     <Layout pageClasse="singlePage" isLoading={isLoading}>
 
       <HeroSingle hike={hike} animated={isLoading} />
+      <Map location={hike?.location} />
 
     </Layout>
   )
