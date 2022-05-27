@@ -38,7 +38,6 @@ export default function () {
     },
   });
 
-
   useEffect(() => {
     googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
       .then(results => getLatLng(results[0]))
@@ -127,7 +126,6 @@ export default function () {
         </div>
 
         <div className="action">
-          <button onClick={() => fetchAlbums()} >Create</button>
           <button type="submit" className={`btn ${Object.keys(formik.errors).length === 0 ? '' : 'disabled'}`}>Create</button>
         </div>
       </form>

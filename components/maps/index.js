@@ -164,7 +164,6 @@ const MyMarker = ({ text }) => {
 
   const handleClick = () => {
     setOpen(prevState => !prevState);
-    console.log(open);
   };
 
   return (

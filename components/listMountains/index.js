@@ -3,12 +3,13 @@ import Actions from '/components/actions';
 import React, { useState } from "react";
 import { useRouter } from 'next/router';
 
+
 export default function ({ hikes, setHikes,  id }) {
   const [openKey, setOpenKey] = useState();
   const router = useRouter();
 
   const handleToggle = key => {
-    setOpenKey(openKey !== key ? key : null)
+    setOpenKey(openKey !== key ? key : null);
   }
 
   const setRows = hikes?.map((hike, i) => {
@@ -54,6 +55,7 @@ export default function ({ hikes, setHikes,  id }) {
             id={hike.id}
             setHikes={setHikes}
             key={i}
+            customKey={i}
             toggle={handleToggle}
             open={openKey === hike.id}
           />
