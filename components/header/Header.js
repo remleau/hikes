@@ -46,7 +46,7 @@ export default function Header() {
           </div>
           <nav>
             <ul>
-              <li><a onClick={() => openSearch()}>Explore</a></li>
+              <li><a onClick={() => openSearch()} className={`${openSearchBar ? 'active' : ''}`}>Explore</a></li>
               <li>
                 <Link href="/">
                   <a>Mountains</a>
@@ -70,7 +70,7 @@ export default function Header() {
             </div>
             <div className="search-bar-input">
               <input placeholder="Search content ..." type="text" />
-              <a className="btn">Search</a>
+              <a className="btn">Search.</a>
             </div>
           </div>
         </div>

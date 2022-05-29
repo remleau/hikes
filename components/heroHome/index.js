@@ -14,7 +14,7 @@ export default function () {
           <p>Spare ribs salami shank cow pastrami sirloin buffalo. Alcatra ham doner, salami jowl chuck pork chop Spare ribs salami shank cow pastrami sirloin buffalo.</p>
         </div>
         <Link href="/hikes/create">
-          <a className="btn"><span>Add hike</span></a>
+          <a className="btn"><span>Add hike.</span></a>
         </Link>
       </div>
       <div className="slider-heroHome">

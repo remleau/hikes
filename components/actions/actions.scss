@@ -20,7 +20,9 @@
   .actionsButtons {
     @apply absolute p-2 bg-white shadow z-10 rounded-sm opacity-0 invisible border border-transparent;
     @apply transition-all duration-200;
-
+    @apply flex flex-col items-center;
+    
+    z-index: 1;
     width: 200px;
     top: 100%;
 
@@ -75,6 +77,19 @@
 
     &.active {
       @apply opacity-100 visible z-20;
+    }
+
+    &:after {
+      z-index: -1;
+      position: absolute;
+      top: -7px;
+      content: '';
+
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 5px 6px 5px;
+      border-color: transparent transparent #fff transparent;
     }
   }
 }
