@@ -23,7 +23,7 @@ export default function () {
   return (
     <LayoutContainer pageClasse="searchPage">
 
-      <SubHero pageTitle="Search results." />
+      <SubHero pageTitle={`Search results for "${search}" (${searchResults?.length})`} />
 
       <div className="searchResults">
         {searchResults && <SearchResults results={searchResults} />}

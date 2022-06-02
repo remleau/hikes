@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { useAuth } from '/components/utils/UserContext';
 
-import { getFirestore, collection, getDocs, getDoc, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore"
+import { getFirestore, collection, getDocs, getDoc, doc, setDoc, deleteDoc, updateDoc, query, where } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, uploadBytesResumable } from "firebase/storage";
 import app from './firebase';
 
@@ -69,7 +69,15 @@ export const DataProvider = ({ children }) => {
 
 
   const getSearchResults = async (seachTerm) => {
-    return seachTerm;
+    const q = query(collection(db, 'hikes'), where('name', '>=', seachTerm), where('name', '<=', seachTerm+ '\uf8ff'));
+    const results = await getDocs(q);
+
+    const searchResults = [];
+    results && results.forEach((doc) => {
+      searchResults.push(doc.data())
+    });
+
+    return searchResults ? searchResults : null;
   } 
 
 
