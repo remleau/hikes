@@ -140,9 +140,22 @@ header {
           width: 400px;
         }
 
+        .input-field {
+          @apply mb-0;
+        }
+
+        .input-field-error {
+          @apply rounded-none;
+          line-height: 1em;
+        }
+
         .btn {
-          @apply flex items-center font-bold rounded-tr-md cursor-pointer;
+          @apply font-bold rounded-tr-md cursor-pointer;
           @apply rounded-none rounded-tr-md text-lightGrey;
+
+          &.disabled {
+            @apply cursor-not-allowed;
+          }
         }
       }
     }

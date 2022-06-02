@@ -2,8 +2,9 @@ import { useState } from 'react';
 import LanguageSwitcher from "../utils/LanguageSwitcher";
 import { useAuth } from '/components/utils/UserContext';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-import Link from 'next/link'
+import SearchBar from '/components/searchBar';
 
 export default function Header() {
   const router = useRouter();
@@ -61,20 +62,7 @@ export default function Header() {
           </nav>
         </div>
       </div>
-      <div className={`search ${openSearchBar ? 'open' : 'close'}`}>
-        <div className="container">
-          <div className="search-bar">
-            <div className="search-bar-categories">
-              <p>Mountains</p>
-              <p>Members</p>
-            </div>
-            <div className="search-bar-input">
-              <input placeholder="Search content ..." type="text" />
-              <a className="btn">Search.</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SearchBar isOpen={openSearchBar} />
     </header>
   )
 }

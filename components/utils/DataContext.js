@@ -68,6 +68,11 @@ export const DataProvider = ({ children }) => {
   }
 
 
+  const getSearchResults = async (seachTerm) => {
+    return seachTerm;
+  } 
+
+
   // Return Values in the context for other Components
   const value = {
     data,
@@ -75,7 +80,8 @@ export const DataProvider = ({ children }) => {
     getHikes,
     getHikeById,
     addHike,
-    deleteHike
+    deleteHike,
+    getSearchResults
   }
 
   return (
