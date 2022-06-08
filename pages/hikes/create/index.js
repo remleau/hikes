@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useFormik } from "formik";
 import { useData } from '/components/utils/DataContext';
+import { getGooglePhotosToken } from '/components/utils/UserContext';
+
 import * as Yup from "yup";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
@@ -11,7 +13,7 @@ import { Input, FormError, SuccesLink, ImportFiles } from '/components/form'
 import { useEffect } from 'react';
 
 
-export default function () {
+export default function ({ albums }) {
   const [googlePlaceValue, setGooglePlaceValue] = useState(null);
   const [formError, setFormError] = useState(null);
   const { addHike } = useData();
@@ -39,6 +41,7 @@ export default function () {
   });
 
   useEffect(() => {
+    console.log(albums)
     googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => 
@@ -49,11 +52,6 @@ export default function () {
         })
       );
   }, [googlePlaceValue]);
-
-  const fetchAlbums = () => {
- 
-  }
-
 
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
@@ -132,4 +130,24 @@ export default function () {
 
     </LayoutContainer>
   )
+}
+
+export async function getServerSideProps(context) {
+  const cookie = require('cookie');
+  const Photos = require('googlephotos');
+
+  const browserCookies = context.req.headers.cookie;
+  const cookies = cookie.parse(browserCookies);
+
+  const googlePhotosToken = cookies.googlePhotosToken;
+
+  const photos = new Photos(googlePhotosToken);
+
+  const albums = await photos.albums.list(5);
+
+  return {
+    props: {
+      albums: albums
+    }, // Will be passed to the page component as props
+  }
 }

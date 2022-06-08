@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useAuth } from '/components/utils/UserContext';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,13 +10,22 @@ import { LayoutContainer } from '/components/layout';
 import { useEffect } from 'react';
 
 export default function () {
+  const router = useRouter();
   const [userData, setUserData] = useState();
   const [formError, setFormError] = useState(null);
   const { getUserData } = useAuth();
 
+
   useEffect(async () => {
-    setUserData(() => getUserData());
-  }, [])
+    getUserData().then((rep) => {
+      setUserData(rep)
+    });
+  }, []);
+
+  const OauthRedirect = (e) => {
+    e.preventDefault()
+    router.push('/settings/Oauth')
+  }
 
 
   const formik = useFormik({
@@ -49,6 +59,9 @@ export default function () {
               <span>Is email verified: {userData?.emailVerified ? 'true' : 'false'}</span>
               <span>Created at: {userData?.metadata?.creationTime}</span>
               <span>Last sign In: {userData?.metadata?.lastSignInTime}</span>
+              {userData?.settings?.googlePhotosToken && (
+                <span>Google photos Token: {userData?.settings?.googlePhotosToken}</span>
+              )}
             </label>
           </div>
         </div>
@@ -84,6 +97,7 @@ export default function () {
 
         <div className="action">
           <button type="submit" className="btn">Update</button>
+          <button type="submit" className="btn" onClick={(e) => OauthRedirect(e)}>Connect Google Photos</button>
         </div>
       </form>
 

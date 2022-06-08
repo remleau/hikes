@@ -2,13 +2,18 @@ import React, { useState, createContext, useContext } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import app from './firebase';
+import { useCookies } from 'react-cookie';
+
 import { 
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  getIdToken
 } from "firebase/auth";
+
+import { getFirestore, collection, doc, setDoc, getDocs, query, where } from "firebase/firestore"
 
 export const UserContext = createContext();
 
@@ -22,7 +27,8 @@ export const UserProvider = ({ children }) => {
   const [isLoggedInState, setIsLoggedInState] = useState(false);
   const auth = getAuth(app);
   const userInfo = auth.currentUser;
-
+  const db = getFirestore(app);
+  const [cookies, setCookie] = useCookies(['googlePhotosToken']);
 
   // SignUp fonction
   const signUp = (email, password) => {
@@ -47,20 +53,23 @@ export const UserProvider = ({ children }) => {
 
 
   // Get UserInfo from profile
-  const getUserData = () => {
-    console.log({
-      uid: userInfo.uid,
-      emailVerified: userInfo.emailVerified,
-      email: userInfo.email,
-      photoUrl: userInfo.photoURL,
-      metadata: userInfo.metadata
-    })
+  const getUserData = async () => {
+    const q = query(collection(db, "users"), where("uid", "==", userInfo.uid));
+    const docSnap = await getDocs(q);
+
+    const results = [];
+
+    docSnap.forEach(doc => {
+      results.push(doc.data());
+    });
+
     return {
       uid: userInfo.uid,
       emailVerified: userInfo.emailVerified,
       email : userInfo.email,
       photoUrl: userInfo.photoURL,
-      metadata : userInfo.metadata
+      metadata : userInfo.metadata,
+      settings: results[0]
     };
   }
 
@@ -71,13 +80,29 @@ export const UserProvider = ({ children }) => {
   }
 
 
+  // Add custom fields to users
+  const addUserGooglePhotosToken = async (code) => {
+    const refDb = doc(db, "users", userInfo.uid);
+
+    const data = {
+      uid: getUserId(),
+      googlePhotosToken: code
+    }
+
+    setCookie('googlePhotosToken', code, { path: '/' });
+
+    await setDoc(refDb, data, { merge: true });
+
+    return refDb.id ? true : false
+  }
+
+
   // Handle Auth change and set User
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
         setIsLoggedInState(true);
-        console.log(user);
       }
 
       if (user && (router.pathname == '/connexion' || router.pathname == '/register')) { 
@@ -99,6 +124,7 @@ export const UserProvider = ({ children }) => {
     isLoggedIn,
     getUserData,
     getUserId,
+    addUserGooglePhotosToken
   }
 
   if (!user && router.pathname !== '/connexion' && router.pathname !== '/register') return null;
