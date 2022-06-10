@@ -55,7 +55,7 @@ export default function Header() {
               </li>
               <li>
                 <Link href="/hikes">
-                  <a className="btn">My Hikes.</a>
+                  <a className="btn">Hikes</a>
                 </Link>
               </li>
             </ul>

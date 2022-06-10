@@ -97,6 +97,11 @@ export const UserProvider = ({ children }) => {
   }
 
 
+  const getGooglePhotosToken = () => {
+    return "ya29.a0ARrdaM8VLbu63dvWVubfLtiSzlGSHSJCLL_exmyInx_fHacbyUqMm8RedBxWzofprrHAGvFmNt5k2wUkSOxxK_lfSl110WlOPaFoCdNRrYOqnyMyVJyEJr86jv9DR6daiU9gwntmGWcBpjJpsGufEBI53qn1"
+  }
+
+
   // Handle Auth change and set User
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -124,7 +129,8 @@ export const UserProvider = ({ children }) => {
     isLoggedIn,
     getUserData,
     getUserId,
-    addUserGooglePhotosToken
+    addUserGooglePhotosToken,
+    getGooglePhotosToken
   }
 
   if (!user && router.pathname !== '/connexion' && router.pathname !== '/register') return null;

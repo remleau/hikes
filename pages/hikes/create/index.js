@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFormik } from "formik";
 import { useData } from '/components/utils/DataContext';
-import { getGooglePhotosToken } from '/components/utils/UserContext';
+import useSWR from 'swr'
 
 import * as Yup from "yup";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
@@ -12,11 +12,27 @@ import { LayoutContainer } from '/components/layout';
 import { Input, FormError, SuccesLink, ImportFiles } from '/components/form'
 import { useEffect } from 'react';
 
+const fetcher = async (url) => {
+  const res = await fetch(url)
+  const data = await res.json()
+
+  if (res.status !== 200) {
+    throw new Error(data.message)
+  }
+  return data
+}
 
 export default function ({ albums }) {
   const [googlePlaceValue, setGooglePlaceValue] = useState(null);
   const [formError, setFormError] = useState(null);
   const { addHike } = useData();
+
+  const { data, error } = useSWR(
+    () => `/api/albums`,
+    fetcher
+  );
+
+  console.log(data);
 
   const formik = useFormik({
     initialValues: {
@@ -41,7 +57,6 @@ export default function ({ albums }) {
   });
 
   useEffect(() => {
-    console.log(albums)
     googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => 
@@ -60,7 +75,7 @@ export default function ({ albums }) {
 
       <form onSubmit={formik.handleSubmit} className="userDataForm" encType ="multipart/form-data">
         <div className="formDescription">
-          <p>My awesome hike!</p>
+          <p>My awesome hike! <img src={data?.albums[0].coverPhotoBaseUrl} /></p>
         </div>
 
         {formError && <FormError error={formError} />}
@@ -130,24 +145,4 @@ export default function ({ albums }) {
 
     </LayoutContainer>
   )
-}
-
-export async function getServerSideProps(context) {
-  const cookie = require('cookie');
-  const Photos = require('googlephotos');
-
-  const browserCookies = context.req.headers.cookie;
-  const cookies = cookie.parse(browserCookies);
-
-  const googlePhotosToken = cookies.googlePhotosToken;
-
-  const photos = new Photos(googlePhotosToken);
-
-  const albums = await photos.albums.list(5);
-
-  return {
-    props: {
-      albums: albums
-    }, // Will be passed to the page component as props
-  }
 }
