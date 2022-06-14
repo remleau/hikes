@@ -1,0 +1,75 @@
+.googlePhotosFrame {
+  @apply w-1/2;
+
+  .drawer-head {
+    @apply w-full flex justify-center h-full bg-lightGrey;
+
+    a {
+      @apply cursor-pointer w-full flex items-center;
+    }
+  }
+
+  .drawer-content {
+    @apply w-full z-10 overflow-y-scroll;
+    @apply bg-white;
+
+    @apply opacity-0 invisible;
+    @apply transition-all duration-200;
+
+    @apply absolute w-full h-full left-0 top-0;
+
+    &.active {
+      @apply visible opacity-100;
+    }
+
+    .title {
+      @apply p-10;
+      @apply flex items-center justify-between w-full;
+      @apply shadow-sm;
+
+      .close {
+        @apply cursor-pointer;
+      }
+    }
+
+    .content {
+      @apply p-10;
+
+      .albums {
+        @apply flex flex-wrap justify-between;
+
+        .album {
+          @apply mb-4 cursor-pointer;
+          width: 18%;
+
+          .image-container {
+            @apply mt-2 overflow-hidden;
+
+            .image {
+              @apply flex items-center justify-center;
+              @apply transition-all duration-150;
+
+              overflow: hidden;
+              width: 100%;
+              height: 200px;
+              background-size: cover;
+              background-position: center;
+            }
+          }
+
+          &:hover {
+            h4 {
+              @apply text-darkGreen;
+            }
+
+            .image-container {
+              .image {
+                transform: scale(1.05);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

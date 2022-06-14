@@ -28,10 +28,14 @@
 
       > div {
         @apply -mx-4;
+
+        > * {
+          @apply mx-4 mb-4;
+        }
       }
 
       label {
-        @apply inline-block mx-4; 
+        @apply inline-block;
 
         span {
           @apply block mb-2;
@@ -52,7 +56,7 @@
         &:focus {
           @apply outline-black rounded-sm border-transparent;
         }
-        
+
         &::placeholder {
           @apply text-xs;
         }
@@ -65,7 +69,7 @@
     }
 
     .action {
-      @apply mt-8;
+      @apply mt-4;
     }
 
     .btn {

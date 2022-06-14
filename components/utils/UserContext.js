@@ -1,25 +1,34 @@
-import React, { useState, createContext, useContext } from 'react';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import app from './firebase';
-import { useCookies } from 'react-cookie';
+import React, { useState, createContext, useContext } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import app from "./firebase";
+import { useCookies } from "react-cookie";
 
-import { 
+import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  getIdToken
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 
-import { getFirestore, collection, doc, setDoc, getDocs, query, where } from "firebase/firestore"
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 export const UserContext = createContext();
 
 export const useAuth = () => {
   return useContext(UserContext);
-}
+};
 
 export const UserProvider = ({ children }) => {
   const router = useRouter();
@@ -28,29 +37,26 @@ export const UserProvider = ({ children }) => {
   const auth = getAuth(app);
   const userInfo = auth.currentUser;
   const db = getFirestore(app);
-  const [cookies, setCookie] = useCookies(['googlePhotosToken']);
+  const [cookies, setCookie] = useCookies(["googlePhotosToken"]);
+  const provider = new GoogleAuthProvider();
 
   // SignUp fonction
   const signUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
-  }
-
+  };
 
   // SignIn function
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
-  }
-
+  };
 
   // LogOut user
   const logOut = () => {
     return signOut(auth);
-  }
-
+  };
 
   // Check if User isLoggedIn
   const isLoggedIn = () => isLoggedInState;
-
 
   // Get UserInfo from profile
   const getUserData = async () => {
@@ -59,26 +65,24 @@ export const UserProvider = ({ children }) => {
 
     const results = [];
 
-    docSnap.forEach(doc => {
+    docSnap.forEach((doc) => {
       results.push(doc.data());
     });
 
     return {
       uid: userInfo.uid,
       emailVerified: userInfo.emailVerified,
-      email : userInfo.email,
+      email: userInfo.email,
       photoUrl: userInfo.photoURL,
-      metadata : userInfo.metadata,
-      settings: results[0]
+      metadata: userInfo.metadata,
+      settings: results[0],
     };
-  }
-
+  };
 
   // Get UserId from profile
   const getUserId = () => {
     return userInfo.uid ? userInfo.uid : null;
-  }
-
+  };
 
   // Add custom fields to users
   const addUserGooglePhotosToken = async (code) => {
@@ -86,21 +90,25 @@ export const UserProvider = ({ children }) => {
 
     const data = {
       uid: getUserId(),
-      googlePhotosToken: code
-    }
+      googlePhotosToken: code,
+    };
 
-    setCookie('googlePhotosToken', code, { path: '/' });
+    setCookie("googlePhotosToken", code, { path: "/" });
 
     await setDoc(refDb, data, { merge: true });
 
-    return refDb.id ? true : false
-  }
+    return refDb.id ? true : false;
+  };
 
+  const signInWithGoogle = () => {
+    return signInWithPopup(auth, provider).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
 
-  const getGooglePhotosToken = () => {
-    return "ya29.a0ARrdaM8VLbu63dvWVubfLtiSzlGSHSJCLL_exmyInx_fHacbyUqMm8RedBxWzofprrHAGvFmNt5k2wUkSOxxK_lfSl110WlOPaFoCdNRrYOqnyMyVJyEJr86jv9DR6daiU9gwntmGWcBpjJpsGufEBI53qn1"
-  }
-
+      console.log({ credential, token });
+    });
+  };
 
   // Handle Auth change and set User
   useEffect(() => {
@@ -110,14 +118,16 @@ export const UserProvider = ({ children }) => {
         setIsLoggedInState(true);
       }
 
-      if (user && (router.pathname == '/connexion' || router.pathname == '/register')) { 
-        router.push('/')
+      if (
+        user &&
+        (router.pathname == "/connexion" || router.pathname == "/register")
+      ) {
+        router.push("/");
       }
     });
 
     return unsubscribe;
-  }, [user])
-
+  }, [user]);
 
   // Return Values in the context for other Components
   const value = {
@@ -130,14 +140,15 @@ export const UserProvider = ({ children }) => {
     getUserData,
     getUserId,
     addUserGooglePhotosToken,
-    getGooglePhotosToken
-  }
+    signInWithGoogle,
+  };
 
-  if (!user && router.pathname !== '/connexion' && router.pathname !== '/register') return null;
+  if (
+    !user &&
+    router.pathname !== "/connexion" &&
+    router.pathname !== "/register"
+  )
+    return null;
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

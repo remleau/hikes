@@ -1,45 +1,29 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useFormik } from "formik";
-import { useData } from '/components/utils/DataContext';
-import useSWR from 'swr'
+import { useData } from "/components/utils/DataContext";
 
 import * as Yup from "yup";
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 
-import SubHero from '/components/subHero';
-import { LayoutContainer } from '/components/layout';
-import { Input, FormError, SuccesLink, ImportFiles } from '/components/form'
-import { useEffect } from 'react';
+import SubHero from "/components/subHero";
+import GooglePhotosFrame from "/components/GooglePhotosFrame";
 
-const fetcher = async (url) => {
-  const res = await fetch(url)
-  const data = await res.json()
-
-  if (res.status !== 200) {
-    throw new Error(data.message)
-  }
-  return data
-}
+import { LayoutContainer } from "/components/layout";
+import { Input, FormError, SuccesLink, ImportFiles } from "/components/form";
+import { useEffect } from "react";
 
 export default function ({ albums }) {
   const [googlePlaceValue, setGooglePlaceValue] = useState(null);
   const [formError, setFormError] = useState(null);
   const { addHike } = useData();
 
-  const { data, error } = useSWR(
-    () => `/api/albums`,
-    fetcher
-  );
-
-  console.log(data);
-
   const formik = useFormik({
     initialValues: {
-      name: '',
-      kilometer: '',
+      name: "",
+      kilometer: "",
       files: [],
-      location: ''
+      location: "",
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -48,34 +32,41 @@ export default function ({ albums }) {
     }),
     onSubmit(values) {
       addHike(values).then((rep) => {
-        setFormError(<SuccesLink link={rep} />)
+        setFormError(<SuccesLink link={rep} />);
         formik.resetForm({
           ...formik.initialValues,
         });
-      })
+      });
     },
   });
 
   useEffect(() => {
-    googlePlaceValue && geocodeByAddress(googlePlaceValue?.value?.structured_formatting?.secondary_text)
-      .then(results => getLatLng(results[0]))
-      .then(({ lat, lng }) => 
-        formik.setFieldValue('location', {
-          adress: googlePlaceValue?.value?.structured_formatting?.secondary_text,
-          lat: lat,
-          lng: lng
-        })
-      );
+    googlePlaceValue &&
+      geocodeByAddress(
+        googlePlaceValue?.value?.structured_formatting?.secondary_text
+      )
+        .then((results) => getLatLng(results[0]))
+        .then(({ lat, lng }) =>
+          formik.setFieldValue("location", {
+            adress:
+              googlePlaceValue?.value?.structured_formatting?.secondary_text,
+            lat: lat,
+            lng: lng,
+          })
+        );
   }, [googlePlaceValue]);
 
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
-
       <SubHero pageTitle="Add a quick hike." />
 
-      <form onSubmit={formik.handleSubmit} className="userDataForm" encType ="multipart/form-data">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="userDataForm"
+        encType="multipart/form-data"
+      >
         <div className="formDescription">
-          <p>My awesome hike! <img src={data?.albums[0].coverPhotoBaseUrl} /></p>
+          <p>My awesome hike!</p>
         </div>
 
         {formError && <FormError error={formError} />}
@@ -83,13 +74,15 @@ export default function ({ albums }) {
         <div className="fields">
           <div className="flex">
             <label htmlFor="" className="w-1/2">
-              <span>Name of your Hike. <sup>*</sup></span>
+              <span>
+                Name of your Hike. <sup>*</sup>
+              </span>
               <Input
                 onChange={formik.handleChange}
                 value={formik.values.name}
                 touched={formik.touched.name}
                 error={formik.errors.name}
-                placeholder="Ex: Mont Washington"
+                placeholder="Ex: Lorem ipsum dolar sit amet"
                 name="name"
                 type="text"
               />
@@ -109,19 +102,25 @@ export default function ({ albums }) {
           </div>
 
           <div className="flex">
-            <label htmlFor="files" className="w-1/2">
-              <span>Digital memories.</span>
-              <ImportFiles
-                onChange={formik.handleChange}
-                value={formik.values.files}
-                touched={formik.touched.files}
-                error={formik.errors.files}
-                formik={formik}
-                name="files[]"
-                type="file"
-                id="files"
-              />
-            </label>
+            <div className="w-1/2 flex">
+              <label htmlFor="files" className="w-1/2 mr-4">
+                <span>Digital memories.</span>
+                <div>
+                  <ImportFiles
+                    onChange={formik.handleChange}
+                    value={formik.values.files}
+                    touched={formik.touched.files}
+                    error={formik.errors.files}
+                    formik={formik}
+                    name="files[]"
+                    type="file"
+                    id="files"
+                  />
+                </div>
+              </label>
+              <GooglePhotosFrame />
+            </div>
+
             <label className="w-1/2">
               <span>Location.</span>
               <div className="googlePlaces">
@@ -130,7 +129,7 @@ export default function ({ albums }) {
                   selectProps={{
                     googlePlaceValue,
                     onChange: setGooglePlaceValue,
-                    placeholder:"ex: mount washington"
+                    placeholder: "ex: mount washington",
                   }}
                 />
               </div>
@@ -139,10 +138,16 @@ export default function ({ albums }) {
         </div>
 
         <div className="action">
-          <button type="submit" className={`btn ${Object.keys(formik.errors).length === 0 ? '' : 'disabled'}`}>Create</button>
+          <button
+            type="submit"
+            className={`btn ${
+              Object.keys(formik.errors).length === 0 ? "" : "disabled"
+            }`}
+          >
+            Create
+          </button>
         </div>
       </form>
-
     </LayoutContainer>
-  )
+  );
 }

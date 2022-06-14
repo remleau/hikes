@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '/components/utils/UserContext';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "/components/utils/UserContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import SubHero from '/components/subHero';
-import { Input } from '/components/form'
-import { LayoutContainer } from '/components/layout';
-import { useEffect } from 'react';
+import SubHero from "/components/subHero";
+import { Input } from "/components/form";
+import { LayoutContainer } from "/components/layout";
+import { useEffect } from "react";
 
 export default function () {
   const router = useRouter();
@@ -15,30 +15,28 @@ export default function () {
   const [formError, setFormError] = useState(null);
   const { getUserData } = useAuth();
 
-
   useEffect(async () => {
     getUserData().then((rep) => {
-      setUserData(rep)
+      setUserData(rep);
     });
   }, []);
 
   const OauthRedirect = (e) => {
-    e.preventDefault()
-    router.push('/settings/Oauth')
-  }
-
+    e.preventDefault();
+    router.push("/settings/Oauth");
+  };
 
   const formik = useFormik({
     initialValues: {
-      email: userData?.email || '',
-      uid: userData?.uid || '',
+      email: userData?.email || "",
+      uid: userData?.uid || "",
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
       email: Yup.string().email().required("The email is required"),
     }),
     onSubmit(values) {
-      console.log(values)
+      console.log(values);
     },
   });
 
@@ -46,7 +44,7 @@ export default function () {
     <LayoutContainer pageClasse="settingsPage" api="">
       {formError && <Error error={formError} />}
 
-      <SubHero pageTitle="Settings." />      
+      <SubHero pageTitle="Settings." />
 
       <form onSubmit={formik.handleSubmit} className="userDataForm">
         <div className="formDescription">
@@ -55,12 +53,16 @@ export default function () {
 
         <div className="fields">
           <div className="flex">
-            <label htmlFor="" className='w-1/3'>
-              <span>Is email verified: {userData?.emailVerified ? 'true' : 'false'}</span>
+            <label htmlFor="" className="w-1/3">
+              <span>
+                Is email verified: {userData?.emailVerified ? "true" : "false"}
+              </span>
               <span>Created at: {userData?.metadata?.creationTime}</span>
               <span>Last sign In: {userData?.metadata?.lastSignInTime}</span>
               {userData?.settings?.googlePhotosToken && (
-                <span>Google photos Token: {userData?.settings?.googlePhotosToken}</span>
+                <span>
+                  Google photos Token: {userData?.settings?.googlePhotosToken}
+                </span>
               )}
             </label>
           </div>
@@ -96,11 +98,18 @@ export default function () {
         </div>
 
         <div className="action">
-          <button type="submit" className="btn">Update</button>
-          <button type="submit" className="btn" onClick={(e) => OauthRedirect(e)}>Connect Google Photos</button>
+          <button type="submit" className="btn">
+            Update
+          </button>
+          <button
+            type="submit"
+            className="btn"
+            onClick={(e) => OauthRedirect(e)}
+          >
+            Connect Google Photos
+          </button>
         </div>
       </form>
-
     </LayoutContainer>
-  ) 
+  );
 }

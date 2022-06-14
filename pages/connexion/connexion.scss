@@ -7,7 +7,7 @@
     @apply py-10 px-12;
     @apply flex items-center;
 
-    min-height: 425px;  
+    min-height: 425px;
     min-width: 425px;
 
     .loginForm {
@@ -19,6 +19,14 @@
       .action {
         .btn {
           @apply w-full text-lightGrey;
+        }
+
+        .googleSignIn {
+          @apply cursor-pointer;
+
+          img {
+            max-width: 75%;
+          }
         }
 
         .text {

@@ -1,25 +1,26 @@
 // Components
 
 /* common */
-@import 'common';
-@import 'header';
-@import 'footer';
-@import 'typographies';
-@import 'buttons';
-@import 'tables';
-@import 'form';
+@import "common";
+@import "header";
+@import "footer";
+@import "typographies";
+@import "buttons";
+@import "tables";
+@import "form";
 
-/* realShieeet */
-@import '/components/heroHome/heroHome';
-@import '/components/heroSingle/heroSingle';
-@import '/components/cardStats/cardStats';
-@import '/components/cardStats/cardStats';
-@import '/components/listMountains/listMountains';
-@import '/components/subHero/subHero';
-@import '/components/form/input';
-@import '/components/actions/actions';
+/* Components */
+@import "/components/heroHome/heroHome";
+@import "/components/heroSingle/heroSingle";
+@import "/components/cardStats/cardStats";
+@import "/components/cardStats/cardStats";
+@import "/components/listMountains/listMountains";
+@import "/components/subHero/subHero";
+@import "/components/form/input";
+@import "/components/actions/actions";
+@import "/components/googlePhotosFrame/googlePhotosFrame";
 
 /* pages */
-@import '/pages/connexion/connexion';
-@import '/pages/register/register';
-@import '/pages/settings/settings';
+@import "/pages/connexion/connexion";
+@import "/pages/register/register";
+@import "/pages/settings/settings";
