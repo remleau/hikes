@@ -1,0 +1,93 @@
+.listMountains {
+  @apply mb-8;
+
+  .container {
+    @apply px-0;
+  }
+
+  table {
+    thead {
+      tr {
+        td {
+          @apply p-3 px-4;
+
+          &.name {
+            width: 350px;
+          }
+
+          &.informations {
+            flex: 1;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        @apply mb-2 bg-lightGrey rounded;
+
+        .name {
+          @apply flex flex-col justify-center font-semibold cursor-pointer;
+          
+          width: 350px;
+
+          .hikeName {
+            @apply flex items-start text-darkGreen;
+          }
+
+          .hikeLocation {
+            @apply mt-1 text-sm;
+          }
+
+          &:hover {
+            @apply bg-lightGreen bg-opacity-10;
+
+            .hikeName,
+            .hikeLocation {
+              @apply underline cursor-pointer;
+            }
+          }
+        }
+
+        .informations {
+          flex: 1;
+
+          .hikeImages,
+          .hikeKilometer,
+          .hikeDate {
+            @apply flex items-center text-darkGreen;
+
+            span {
+              @apply text-darkGrey text-sm;
+            }
+          }
+        }
+
+        .actions {
+          @apply flex justify-center items-center;
+        }
+
+        td {
+          @apply p-3 px-4;
+          @apply bg-lightGrey rounded;
+
+          svg {
+            @apply mr-1;
+            width: 16px;
+          }
+        }
+
+        td:not([class]) {
+          flex: 1;
+        }
+
+        &:last-of-type {
+          @apply mb-0;
+        }
+      }
+    }
+
+ 
+  } // table
+
+} // fin components

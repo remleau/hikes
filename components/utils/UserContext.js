@@ -1,14 +1,11 @@
-import React, { useState, createContext, useContext } from "react";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import app from "./firebase";
+import React, { useState, createContext, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
@@ -33,30 +30,16 @@ export const useAuth = () => {
 export const UserProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [isLoggedInState, setIsLoggedInState] = useState(false);
   const auth = getAuth(app);
   const userInfo = auth.currentUser;
   const db = getFirestore(app);
   const [cookies, setCookie] = useCookies(["googlePhotosToken"]);
   const provider = new GoogleAuthProvider();
 
-  // SignUp fonction
-  const signUp = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  // SignIn function
-  const signIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
   // LogOut user
   const logOut = () => {
     return signOut(auth);
   };
-
-  // Check if User isLoggedIn
-  const isLoggedIn = () => isLoggedInState;
 
   // Get UserInfo from profile
   const getUserData = async () => {
@@ -113,15 +96,13 @@ export const UserProvider = ({ children }) => {
   // Handle Auth change and set User
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) router.push("/connexion");
+
       if (user) {
         setUser(user);
-        setIsLoggedInState(true);
       }
 
-      if (
-        user &&
-        (router.pathname == "/connexion" || router.pathname == "/register")
-      ) {
+      if (user && router.pathname == "/connexion") {
         router.push("/");
       }
     });
@@ -133,22 +114,16 @@ export const UserProvider = ({ children }) => {
   const value = {
     user,
     setUser,
-    signUp,
     logOut,
-    signIn,
-    isLoggedIn,
     getUserData,
     getUserId,
     addUserGooglePhotosToken,
     signInWithGoogle,
   };
 
-  if (
-    !user &&
-    router.pathname !== "/connexion" &&
-    router.pathname !== "/register"
-  )
+  if (!user && router.pathname !== "/connexion") {
     return null;
+  }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

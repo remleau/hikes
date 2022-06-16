@@ -65,8 +65,13 @@ export default function Header() {
                 </a>
               </li>
               <li>
+                <Link href="/mountains">
+                  <a>Mountains</a>
+                </Link>
+              </li>
+              <li>
                 <Link href="/hikes">
-                  <a className="btn">Hikes</a>
+                  <a className="btn">My Hikes</a>
                 </Link>
               </li>
             </ul>

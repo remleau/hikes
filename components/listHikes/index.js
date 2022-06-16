@@ -12,12 +12,6 @@ export default function ({ hikes, setHikes, id }) {
   };
 
   const setRows = hikes?.map((hike, i) => {
-    const userGradient = {
-      background: "linear-gradient(90deg, #009977 54%, #EE1948 46%)",
-      //WebkitBackgroundClip: "text", // Removed !important
-      //backgroundClip: "text", // Removed !important
-      color: "transparent",
-    };
     return (
       <tr key={i}>
         <td className="name" onClick={() => router.push(`hikes/${hike.id}`)}>
@@ -41,11 +35,13 @@ export default function ({ hikes, setHikes, id }) {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span>{hike?.data?.mountain_name}</span>
+            <span>{hike?.data?.hike_name}</span>
           </div>
-          {hike?.data?.adress && (
+          {hike?.data?.location && (
             <div className="hikeLocation">
-              <span>{hike?.data?.adress && hike?.data?.adress}</span>
+              <span>
+                {hike?.data?.location && hike?.data?.location?.adress}
+              </span>
             </div>
           )}
         </td>
@@ -62,11 +58,11 @@ export default function ({ hikes, setHikes, id }) {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
             <span>
-              {hike?.data?.kilometer ? hike?.data?.kilometer + "km" : "54/100"}
+              {hike?.data?.kilometer ? hike?.data?.kilometer + "km" : "-"}
             </span>
           </div>
           <div className="hikeImages">
@@ -89,7 +85,7 @@ export default function ({ hikes, setHikes, id }) {
                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span>21{hike?.data?.files?.length}</span>
+            <span>Images: {hike?.data?.files?.length}</span>
           </div>
         </td>
         <td className="actions">

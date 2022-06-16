@@ -1,6 +1,6 @@
 import SubHero from "/components/subHero";
 import { LayoutContainer } from "/components/layout";
-import Link from "next/link";
+//import Link from "next/link";
 
 import { useData } from "/components/utils/DataContext";
 import { useEffect, useState } from "react";
@@ -8,24 +8,18 @@ import { useEffect, useState } from "react";
 import ListMountains from "/components/listMountains";
 
 export default function () {
-  const [hikes, setHikes] = useState(null);
-  const { getHikes } = useData();
+  const [mountains, setMountains] = useState(null);
+  const { getMountains } = useData();
 
   useEffect(async () => {
-    setHikes(await getHikes());
+    setMountains(await getMountains());
   }, []);
 
   return (
     <LayoutContainer pageClasse="settingsPage" api="">
-      <SubHero pageTitle="My Hikes.">
-        <Link href="/hikes/create">
-          <a className="btn">
-            <span>Add hike.</span>
-          </a>
-        </Link>
-      </SubHero>
+      <SubHero pageTitle="Mountains." />
 
-      <ListMountains hikes={hikes} setHikes={setHikes} />
+      <ListMountains hikes={mountains} setHikes={setMountains} />
     </LayoutContainer>
   );
 }

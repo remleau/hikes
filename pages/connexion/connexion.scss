@@ -7,10 +7,12 @@
     @apply py-10 px-12;
     @apply flex items-center;
 
-    min-height: 425px;
-    min-width: 425px;
+    min-height: 375px;
+    min-width: 400px;
 
     .loginForm {
+      @apply flex items-center justify-center;
+
       input {
         @apply border-b border-darkGrey border-opacity-40 outline-none;
         @apply block w-full py-2 mb-6;
@@ -22,9 +24,11 @@
         }
 
         .googleSignIn {
-          @apply cursor-pointer;
+          @apply text-center cursor-pointer;
 
           img {
+            @apply inline-block;
+
             max-width: 75%;
           }
         }
@@ -46,7 +50,13 @@
     }
 
     .form-info {
-      @apply mb-5;
+      @apply w-full flex justify-center items-center;
+      @apply mb-8;
+
+      .logo {
+        @apply mr-4;
+        width: 70px;
+      }
     }
   }
 }

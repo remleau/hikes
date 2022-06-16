@@ -13,22 +13,25 @@ import { LayoutContainer } from "/components/layout";
 import { Input, FormError, SuccesLink, ImportFiles } from "/components/form";
 import { useEffect } from "react";
 
-export default function ({ albums }) {
+export default function () {
   const [googlePlaceValue, setGooglePlaceValue] = useState(null);
   const [formError, setFormError] = useState(null);
   const { addHike } = useData();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      hike_name: "",
       kilometer: "",
       files: [],
       location: "",
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
-      name: Yup.string().required("The name is required"),
-      // kilometer: Yup.number().typeError('You must specify a number').min(1).required("You must specify a number"),
+      hike_name: Yup.string().required("The name is required"),
+      kilometer: Yup.number()
+        .typeError("You must specify a number")
+        .min(1)
+        .required("You must specify a number"),
     }),
     onSubmit(values) {
       addHike(values).then((rep) => {
@@ -48,6 +51,9 @@ export default function ({ albums }) {
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) =>
           formik.setFieldValue("location", {
+            mountain_name:
+              googlePlaceValue?.value?.structured_formatting?.main_text,
+            mountain_id: googlePlaceValue?.value?.place_id,
             adress:
               googlePlaceValue?.value?.structured_formatting?.secondary_text,
             lat: lat,
@@ -79,11 +85,11 @@ export default function ({ albums }) {
               </span>
               <Input
                 onChange={formik.handleChange}
-                value={formik.values.name}
-                touched={formik.touched.name}
-                error={formik.errors.name}
+                value={formik.values.hike_name}
+                touched={formik.touched.hike_name}
+                error={formik.errors.hike_name}
                 placeholder="Ex: Lorem ipsum dolar sit amet"
-                name="name"
+                name="hike_name"
                 type="text"
               />
             </label>
@@ -126,10 +132,14 @@ export default function ({ albums }) {
               <div className="googlePlaces">
                 <GooglePlacesAutocomplete
                   apiKey={process.env.googleMapsKey}
+                  apiOptions={{ language: "en" }}
                   selectProps={{
                     googlePlaceValue,
                     onChange: setGooglePlaceValue,
                     placeholder: "ex: mount washington",
+                  }}
+                  autocompletionRequest={{
+                    types: ["natural_feature"],
                   }}
                 />
               </div>

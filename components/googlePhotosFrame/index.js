@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
-
 import useSWR from "swr";
 
 const fetcher = async (url) => {
@@ -13,7 +11,7 @@ const fetcher = async (url) => {
   return data;
 };
 
-export default function ({ albums }) {
+export default function () {
   const [openDrawer, setOpenDrawer] = useState(false);
   const { data, error } = useSWR(() => `/api/albums`, fetcher);
 

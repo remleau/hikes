@@ -1,10 +1,10 @@
-import HeroHome from '/components/heroHome';
-import { Layout } from '/components/layout';
-import CardStats from '/components/cardStats';
-import ListMountains from '/components/listMountains';
+import HeroHome from "/components/heroHome";
+import { Layout } from "/components/layout";
+import CardStats from "/components/cardStats";
+import ListMountains from "/components/listMountains";
 
-import { useState, useEffect } from 'react';
-import { useData } from '/components/utils/DataContext';
+import { useState, useEffect } from "react";
+import { useData } from "/components/utils/DataContext";
 
 export default function Home() {
   const [hikes, setHikes] = useState(null);
@@ -12,13 +12,13 @@ export default function Home() {
 
   useEffect(async () => {
     setHikes(await getHikes());
-  }, [])
+  }, []);
 
   return (
-    <Layout api="">
+    <Layout>
       <HeroHome />
       <CardStats />
       <ListMountains hikes={hikes} setHikes={setHikes} id="home" />
     </Layout>
-  )
+  );
 }
