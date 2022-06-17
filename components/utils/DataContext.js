@@ -79,7 +79,7 @@ export const DataProvider = ({ children }) => {
     // Add mountains if not found
     const qMountains = query(
       collection(db, "mountains"),
-      where("mountain_id", "==", data?.location?.mountain_id)
+      where("mountain_id", "==", data?.location?.mountain_id || "")
     );
     const mountains = await getDocs(qMountains);
     const mountainsResults = [];

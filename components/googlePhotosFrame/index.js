@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 
 const fetcher = async (url) => {
@@ -14,6 +15,12 @@ const fetcher = async (url) => {
 export default function () {
   const [openDrawer, setOpenDrawer] = useState(false);
   const { data, error } = useSWR(() => `/api/albums`, fetcher);
+  const router = useRouter();
+
+  const OauthRedirect = (e) => {
+    e.preventDefault();
+    router.push("/settings/Oauth");
+  };
 
   const renderedAlbums = data?.albums?.map((album, index) => {
     console.log(album);
@@ -30,8 +37,12 @@ export default function () {
     );
   });
 
-  if (error) {
-    return null;
+  if (!data && error) {
+    return (
+      <button type="submit" className="btn" onClick={(e) => OauthRedirect(e)}>
+        Connect Google Photos
+      </button>
+    );
   }
 
   return (

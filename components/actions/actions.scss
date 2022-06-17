@@ -21,9 +21,9 @@
     @apply absolute p-2 bg-white shadow z-10 rounded-sm opacity-0 invisible border border-transparent;
     @apply transition-all duration-200;
     @apply flex flex-col items-center;
-    
+
     z-index: 1;
-    width: 200px;
+    width: auto;
     top: 100%;
 
     > div {
@@ -31,7 +31,7 @@
       @apply mr-2 p-2 rounded cursor-pointer;
 
       p {
-        @apply text-xs text-darkGrey text-opacity-60;
+        @apply text-xs text-darkGrey text-opacity-60 whitespace-nowrap;
       }
 
       svg {
@@ -52,23 +52,26 @@
         &.update {
           @apply text-lightGreen  bg-lightGreen bg-opacity-10 shadow-sm;
 
-          p, svg {
+          p,
+          svg {
             @apply text-lightGreen;
           }
         }
 
         &.read {
           @apply text-blue bg-lightBlue bg-opacity-10 shadow-sm;
-          
-          p, svg {
+
+          p,
+          svg {
             @apply text-blue;
           }
         }
 
         &.delete {
           @apply text-red bg-red bg-opacity-10;
-          
-          p, svg {
+
+          p,
+          svg {
             @apply text-red;
           }
         }
@@ -83,7 +86,7 @@
       z-index: -1;
       position: absolute;
       top: -7px;
-      content: '';
+      content: "";
 
       width: 0;
       height: 0;

@@ -89,11 +89,12 @@ export default function ({ hikes, setHikes, id }) {
                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span>21{hike?.data?.files?.length}</span>
+            <span>21{hike?.data?.files?.length} pictures</span>
           </div>
         </td>
         <td className="actions">
           <Actions
+            mountainData={hike?.data}
             id={hike.id}
             setHikes={setHikes}
             key={i}

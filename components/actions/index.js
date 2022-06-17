@@ -2,10 +2,19 @@ import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { useData } from "/components/utils/DataContext";
 
-export default function ({ setHikes, id, toggle, open, customKey }) {
+export default function ({
+  setHikes,
+  id,
+  toggle,
+  open,
+  customKey,
+  mountainData,
+}) {
   const router = useRouter();
   const { deleteHike } = useData();
   const actionRef = useRef(null);
+
+  console.log(mountainData);
 
   useEffect(() => {
     /**
@@ -24,11 +33,11 @@ export default function ({ setHikes, id, toggle, open, customKey }) {
     };
   }, [actionRef]);
 
-  const deleteStateHike = (id) => {
-    deleteHike(id).then(() => {
-      setHikes((prevState) => prevState.filter((hike) => hike.id !== id));
-    });
-  };
+  //const deleteStateHike = (id) => {
+  //  deleteHike(id).then(() => {
+  //    setHikes((prevState) => prevState.filter((hike) => hike.id !== id));
+  //  });
+  //};
 
   return (
     <div ref={actionRef} className="containerActions">
@@ -73,12 +82,9 @@ export default function ({ setHikes, id, toggle, open, customKey }) {
               d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
             />
           </svg>
-          <p>Consult hikes</p>
+          <p>Consult Mountains</p>
         </div>
-        <div
-          className="update"
-          onClick={() => router.push(`hikes/update/${id}`)}
-        >
+        <div className="update" onClick={() => router.push(`hikes/create`)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -93,7 +99,11 @@ export default function ({ setHikes, id, toggle, open, customKey }) {
               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
             />
           </svg>
-          <p>Add my hike</p>
+          <p>
+            Add my hike{" "}
+            {mountainData?.mountain_name &&
+              `to "${mountainData?.mountain_name}"`}
+          </p>
         </div>
         {/*<div className="delete" onClick={() => deleteStateHike(id)}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
